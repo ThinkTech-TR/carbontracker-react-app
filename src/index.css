@@ -11,3 +11,59 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Colors */
+.green {
+  color: #31AA1C;
+}
+
+.red {
+  color: #F43423;
+}
+
+.orange {
+ color: orange;
+}
+
+.purple {   
+ color:purple;
+}
+
+/* Font sizes */
+.font-xl {
+  font-size: calc(1.25em + 0.7vw);
+}
+
+.font-lg {
+  font-size: calc(0.9em + 0.75vw); 
+}
+
+.font-md {
+  font-size: calc(0.75em + 0.7vw);
+}
+
+.font-sm {
+  font-size: calc(0.6em + 0.5vw);
+}
+
+/* Widths, margins and padding */
+.min-width-110 {
+  min-width: 110px;
+}
+
+.margin-sm {
+  margin: 10px;
+}
+
+.margin-left-sm {
+  margin-left: 10px;
+}
+
+.margin-btm-lg {
+ margin-bottom : 40px
+}
+
+.padding-sm {
+  padding: 2px;
+}
+
