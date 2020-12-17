@@ -1,0 +1,202 @@
+/* Colors */
+
+.green {
+    color: #31AA1C !important;;
+  }
+
+.green:hover {
+   color:  #31AA1C;
+}
+
+.green-border {
+    border-bottom: 1px groove #31AA1C;
+
+ }
+
+ .btn {
+     margin-right: 15px;
+ }
+
+ .user-actions {
+    width: 70px;
+    height: 50px;
+ }
+
+.navigation {
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #ffffff;
+    height: 55px;
+}
+
+.title {
+    margin-top:50px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+}
+.analysis-tabs {
+    display: flex;
+    margin-top:50px;
+    flex-direction: column;
+}
+.analysis-summary {
+    display: flex;
+    margin-top:50px;
+    flex-direction: column;
+    text-align: center;
+}
+.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    border-bottom: 0px;
+    background-color: #F4F7F5;
+    height: 100%;
+    width: 100%;
+}
+
+.feets-graph {
+    width: 470px;
+    height: 450px;
+    text-align: center;
+
+}
+
+.red {
+    color: #F43423;
+    /* border: 2px solid #F43423; */
+}
+
+.orange {
+   color: orange;
+   /* border: 2px solid #EF7622; */
+}
+
+.purple {   
+   color:purple;
+   /* border: 2px solid #FBD415; */
+}
+
+html, body {
+    min-height:100%;
+}
+
+body{
+    width: 100%;
+    height:100vh;    
+    background-color: #F4F7F5;
+    font-size: calc(0.75em + 0.75vw);
+}
+
+h1 {
+    margin: 20px;
+}
+
+p {
+    text-align: left;
+    margin: 20px;
+}
+
+table {
+  margin-left: 20px;  
+}
+
+tr {
+    padding: 5px;
+}
+
+tr.padding-sm {
+    padding: 0px;
+}
+
+td {
+    padding: 10px;
+}
+
+td.padding-sm {
+    padding-right: 20px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+    justify-content: space-between;
+}
+
+.content-flex {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-around;
+}
+
+.carbon-button {
+    align-self: center;
+    vertical-align: middle;
+    margin-bottom: 20px;
+}
+
+.action {
+    font-weight: bold;
+    border-radius: 4px;
+    text-align: left;
+    font-size: calc(0.9em + 1vw);
+    vertical-align: middle;
+}
+
+.action-description{    
+    vertical-align: middle;
+    text-align: left;
+    font-size: calc(0.75em + 0.75vw);
+}
+
+.font-xl {
+    font-size: calc(1.25em + 1vw);
+}
+
+.font-lg {
+    font-size: calc(0.75em + 1vw); 
+}
+
+.font-md {
+    font-size: calc(0.75em + 1vw);
+}
+
+.font-sm {
+    font-size: calc(0.6em + 0.75vw);
+}
+
+.margin-sm {
+    margin: 10px;
+}
+
+.margin-left-sm {
+    margin-left: 10px;
+}
+
+.margin-left-md {
+    margin-left: 20px;
+}
+
+
+:root {
+    --animate-delay: 2s;
+  }
+
+/*   F7D978  - Yellow
+EBC156 - another yellow
+#13ee71  - light green
+B23F58  - red / pine
+F7F7F1 - white
+323D68 - dark blueA
+31AA1C - dark green
+AB1116 - bright red
+F43423 - red
+EF7622 - orange
+E8BE4E - yellow
+FBD415 - bright yellow */
