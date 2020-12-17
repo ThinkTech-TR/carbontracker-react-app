@@ -1,20 +1,12 @@
 import React from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-    } from "react-router-dom";
-
 import './Header.css';
-import Landing from '../Landing/Landing'
-import Login from '../Login/Login'
+import {
+    Link
+} from "react-router-dom";
 
 function Header() {
     return (
-        <Router>
-        <div className="header">
-            <header>
+                <header>
                 <nav className="navbar navbar-expand-lg green-border navigation"> 
                     <a className="navbar-brand green" href="index.html">
                         <h3 className="font-lg"><i class="fas fa-tree"></i><span class="pl-4">Carby</span></h3>
@@ -39,13 +31,6 @@ function Header() {
                         </button>
                 </nav>
             </header>
-        </div>
-        <Switch>
-            <Route path="/login"><Login /></Route>
-            <Route path="/"><Landing /></Route>
-            
-        </Switch>
-        </Router>
         );
     }
     
