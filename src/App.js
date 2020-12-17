@@ -5,8 +5,8 @@ import {
     Route
 } from "react-router-dom";
 import Header from './Components/Header/Header'
-import Landing from './Components/Landing/Landing'
 import Login from './Components/Login/Login'
+import Landing from './Components/Landing/Landing'
 
 
 function App() {
