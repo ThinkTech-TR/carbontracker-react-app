@@ -6,7 +6,8 @@ import {
 
 function Header() {
     return (
-                <header>
+                <header className="header">
+                    <div className="header-container">
                 <nav className="navbar navbar-expand-lg green-border navigation"> 
                     <a className="navbar-brand green" href="index.html">
                         <h3 className="font-lg"><i class="fas fa-tree"></i><span class="pl-4">Carby</span></h3>
@@ -28,8 +29,9 @@ function Header() {
                         <button type="button" className="btn">
                         <i className="fas fa-user fa-2x"></i>
                         {/* <img src="/img/logOut.png" alt="Avatar" className="user-actions"/> */}
-                        </button>
+                        </button>  
                 </nav>
+                </div>
             </header>
         );
     }

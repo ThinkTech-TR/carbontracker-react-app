@@ -1,5 +1,19 @@
 /* Colors */
 
+.header {
+    border-bottom: 1px groove #31AA1C;
+    width: 100%;
+}
+
+.header-container {
+    min-height: 55px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
+    align-items: center;
+    padding-top: 7px;
+}
+
 .green {
     color: #31AA1C !important;;
   }
@@ -9,7 +23,7 @@
 }
 
 .green-border {
-    border-bottom: 1px groove #31AA1C;
+    /* border-bottom: 1px groove #31AA1C; */
 
  }
 
