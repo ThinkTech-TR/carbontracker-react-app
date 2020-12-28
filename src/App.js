@@ -7,7 +7,7 @@ import {
 import Header from './Components/Header/Header'
 import Login from './Components/Login/Login'
 import Landing from './Components/Landing/Landing'
-
+import Footer from './Components/Footer/Footer'
 
 function App() {
     return (
@@ -18,6 +18,7 @@ function App() {
                     <Route path="/login"><Login /></Route>
                     <Route path="/"><Landing /></Route>
                 </Switch>
+                <Footer></Footer>
             </Router>
         </div>
     );
