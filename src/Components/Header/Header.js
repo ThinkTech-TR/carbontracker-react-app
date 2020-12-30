@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Header.css';
+import {Avatar} from './Avatar';
 import {
     Link
 } from "react-router-dom";
 
 function Header() {
+
+    const [showAvatar, setShowAvatar] = useState(false);
+
     return (
                 <header className="header">
                     <div className="header-container">
@@ -25,11 +29,11 @@ function Header() {
                         <a className="nav-item nav-link disabled" href="#">Feed</a>
                         </div>
                     </div>  
-                    <Link to="/login"><button type="button" className="btn btn-outline-success d-none d-md-block">Sign in</button></Link> 
-                        <button type="button" className="btn">
-                        <i className="fas fa-user fa-2x"></i>
-                        {/* <img src="/img/logOut.png" alt="Avatar" className="user-actions"/> */}
-                        </button>  
+                    
+                    <Link to="/login"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Sign in</button></Link> 
+                    {!showAvatar && <button type="button" className="btn"><i className="fas fa-user fa-2x"></i></button>}
+                    {showAvatar && <Avatar/>}
+
                 </nav>
                 </div>
             </header>
