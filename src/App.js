@@ -1,4 +1,5 @@
 import './App.css';
+import React, { useState } from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -7,15 +8,38 @@ import {
 import Header from './Components/Header/Header'
 import Login from './Components/Login/Login'
 import Landing from './Components/Landing/Landing'
+import Questionaire from './Components/Questionaire/Questionaire'
 
 
 function App() {
+
+    const [currentQuestion, setCurrentQuestion] = useState(1);
+
+    const [userData, setUserData] = useState({
+        entityType: '',
+        diet: '',
+        transportType: ''
+    })
+
+    const updateUserData = e => {
+        setUserData({
+          ...userData,
+          [e.target.name]: e.target.value
+        });
+      };
+    
     return (
         <div className="App">
             <Router>
                 <Header></Header>
                 <Switch>
                     <Route path="/login"><Login /></Route>
+                    <Route path="/questionaire">< Questionaire 
+                        currentQuestion={currentQuestion}
+                        setCurrentQuestion={setCurrentQuestion}
+                        userData={userData}
+                        updateUserData={updateUserData} />
+                    </Route>
                     <Route path="/"><Landing /></Route>
                 </Switch>
             </Router>

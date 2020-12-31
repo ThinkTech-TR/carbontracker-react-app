@@ -1,5 +1,8 @@
 import './Landing.css';
 import 'animate.css';
+import {
+    Link
+} from "react-router-dom";
 
 function Landing() {
     return (
@@ -28,15 +31,18 @@ function Landing() {
                     <div className="font-md"> Your impact on the planet</div>
                 </div>
             </div>
-            <p class="font-sm">Our tracker allows you to measure, understand and track your carbon footprint as an
+            <p className="font-sm">Our tracker allows you to measure, understand and track your carbon footprint as an
             individual or an organisation. Join together with friends or your team at work to reduce your
             impact on the planet.
             </p>
+
             <div className="carbon-button">
-                <button type="button">
-                    <div className="font-md padding-sm">Estimate Your Carbon Footprint</div>
-                    <div className="font-sm padding-sm">Start tracking today</div>
-                </button>
+                <Link to="/questionaire">
+                    <button type="button">
+                        <div className="font-md padding-sm">Estimate Your Carbon Footprint</div>
+                        <div className="font-sm padding-sm">Start tracking today</div>
+                    </button>
+                </Link>
             </div>
         </div>
     );
