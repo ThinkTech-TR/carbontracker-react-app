@@ -10,6 +10,7 @@ import Login from './Components/Login/Login'
 import Landing from './Components/Landing/Landing'
 import Questionaire from './Components/Questionaire/Questionaire'
 
+import Footer from './Components/Footer/Footer'
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
                     </Route>
                     <Route path="/"><Landing /></Route>
                 </Switch>
+                <Footer></Footer>
             </Router>
         </div>
     );
