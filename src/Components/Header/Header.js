@@ -14,7 +14,7 @@ function Header() {
                     <div className="header-container">
                 <nav className="navbar navbar-expand-lg green-border navigation"> 
                     <a className="navbar-brand green" href="index.html">
-                        <h3 className="font-lg"><i class="fas fa-tree"></i><span class="pl-4">Carby</span></h3>
+                        <h3 className="font-lg"><i className="fas fa-tree"></i><span className="pl-4">Carby</span></h3>
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -23,7 +23,7 @@ function Header() {
                         <div className="navbar-nav">
                         <Link to="/" className="nav-item nav-link active">Home</Link>
                         <a className="nav-item nav-link active disabled" href="#">Track</a>
-                        <a className="nav-item nav-link disabled" href="#">Analyze<span class="sr-only">(current)</span></a>
+                        <a className="nav-item nav-link disabled" href="#">Analyze<span className="sr-only">(current)</span></a>
                         <a className="nav-item nav-link disabled" href="#">Learn</a>
                         <a className="nav-item nav-link disabled" href="#">Teams</a>
                         <a className="nav-item nav-link disabled" href="#">Feed</a>
