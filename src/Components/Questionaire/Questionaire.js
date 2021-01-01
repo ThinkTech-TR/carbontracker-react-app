@@ -14,7 +14,7 @@ function Questionaire({ currentQuestion,
         if (currentQuestion < totalQuestions) {
             return <button className="quest-btn" onClick={() => setCurrentQuestion(currentQuestion + 1)}>Next</button>
         } else {
-            return <button>Complete</button>
+            return <button className="quest-btn">Finish</button>
         }
     }
     const previousQuestion = () => {
@@ -28,18 +28,24 @@ function Questionaire({ currentQuestion,
             <div className="quest-main-container">
                 <h3 className="quest-font-md">For whom do you wish to estimate carbon?</h3>
                 <div className="quest-radio-group">
-                    <div className="quest-radio-item">
+                    <label className="quest-radio-item" htmlFor="individual">
                         <input type="radio" id="individual" name="estimateType" value="individual" defaultChecked></input>
-                        <label htmlFor="individual"><FontAwesomeIcon icon="user" />Individual</label>
-                    </div>
-                    <div className="quest-radio-item">
+                        <div className="checkmark"></div>
+                        <div className="margin-left-sm" ><FontAwesomeIcon icon="user" /></div>
+                        <div className="margin-left-xsm">Individual</div>                        
+                    </label>
+                    <label className="quest-radio-item" htmlFor="company">
                         <input type="radio" id="company" name="estimateType" value="company"></input>
-                        <label htmlFor="company"><FontAwesomeIcon icon="building" />Company</label>
-                    </div>
-                    <div className="quest-radio-item">
+                        <span className="checkmark"></span>
+                        <span className="margin-left-sm" ><FontAwesomeIcon icon="building" /></span>
+                        <span className="margin-left-xsm">Company</span>                        
+                    </label>
+                    <label className="quest-radio-item" htmlFor="communityGroup">
                         <input type="radio" id="communityGroup" name="estimateType" value="communityGroup"></input>
-                        <label htmlFor="commnuityGroup"><FontAwesomeIcon icon="users" />Community Group</label>
-                    </div>                    
+                        <span className="checkmark"></span>
+                        <span className="margin-left-sm" ><FontAwesomeIcon icon="users" /></span>
+                        <span className="margin-left-xsm">Community Group</span>                        
+                    </label>
                 </div>
                 <div className="quest-btn-container quest-font-sm">
                     <button className="quest-btn" onClick={() => previousQuestion()}>Back</button>

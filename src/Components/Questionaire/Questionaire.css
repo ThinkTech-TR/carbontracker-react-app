@@ -4,12 +4,13 @@ h2 {
 }
 
 /* Questionaire Classes */
+
 .questionaire-container {
     display: flex;
     flex-direction: row;
     width: 100%;
     height: 100%;
-}   
+}
 
 .quest-main-container {
     display: flex;
@@ -40,15 +41,46 @@ h2 {
 .quest-radio-group {
     display: flex;
     flex-direction: column;
-    align-self: center;
+    align-self: center;    
 }
 
 .quest-radio-item {
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
+    flex-direction: row;  
     font-size: calc(0.5em + 0.6vh + 0.6vh);
-    margin: 5px;
+    margin: 10px;
+    align-items: baseline;  
+    cursor: pointer;
+}
+
+/* Hide the browser's default radio button */
+
+.quest-radio-item input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Create a custom radio button */
+
+.checkmark {
+    height: calc(0.4em + 0.6vh + 0.6vh);
+    width: calc(0.4em + 0.6vh + 0.6vh);
+    background-color: #eee;
+    border-radius: 50%;  
+    align-self: center;
+}
+
+/* On mouse-over, add a grey background color */
+
+.quest-radio-item:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+
+.quest-radio-item input:checked~.checkmark {
+    background-color: #31AA1C;
+    border-color: #31AA1C;
 }
 
 @media only screen and (max-width: 900px) {
