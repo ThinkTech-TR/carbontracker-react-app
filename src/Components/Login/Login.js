@@ -1,16 +1,52 @@
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import { Row } from "react-bootstrap";
-import { Container } from "react-bootstrap";
-import { Col } from "react-bootstrap";
-import { Button} from "react-bootstrap";
 import { FiFacebook } from "react-icons/fi";
 import { FcGoogle} from "react-icons/fc"
+import { Divider } from "@material-ui/core";
 
 
 function Login() {
   return (
+        <div class="loginForm">
+            <div>
+                <label for="emailInput" className="visuallyhidden">Email</label>
+                <input id="emailInput" placeholder="Enter an email"></input>
+            </div>
+            <div>
+                <label for="passwordInput" className="visuallyhidden">Password</label>
+                <input id="passwordInput" placeholder="Enter a password" type="password"></input>
+            </div>
+            <div>
+                <button type="submit" calss="centerButton">Log in</button>
+            </div>
+            
+                
+        </div>
+        /*
+        <Container className="loginContainer" class="center">
+            <Row className="row">
+                <p>Log in to Carbon Tracker App. Calculating your carbon footprint can help you to prioritise the steps
+                            you can take to shrink it, by identifying what the biggest opportunities for reductions are.</p>
+                <Col xs={12} md={6} >
+                    <div class="center" >
+                        <div class="form-group">
+                            <label for="email_input" className="visuallyhidden">Email</label>
+                            <input id="email_input" placeholder="Enter an email"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_input" className="visuallyhidden">Password</label>
+                            <input id="password_input" placeholder="Enter a password"></input>
+                        </div>
+                        <div class="form-group">
+                            <Button variant="outline-success" className="loginButton">Log In</Button>    
+                        </div>
+                    </div>
+                </Col>    
+            </Row>
+        </Container>
+        */
+          /*  
             <Container className="loginContainer">
                 <Row className="row">
                     <div>
@@ -40,6 +76,7 @@ function Login() {
                     </Col>
                 </Row>
             </Container>
+            */
         );
 }
 export default Login;
