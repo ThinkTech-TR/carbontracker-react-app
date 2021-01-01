@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+body > #root {
+  height: 100%;
+}
+
 /* Colors */
 .green {
   color: #31AA1C;

@@ -1,0 +1,64 @@
+h2 {
+    margin: 10px;
+    text-align: left;
+}
+
+/* Questionaire Classes */
+.questionaire-container {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.quest-main-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px black solid;
+    flex: 2 2 45%;
+    padding: 10px;
+}
+
+.quest-info-container {
+    display: flex;
+    border: 1px black solid;
+    flex: 3 3 55%;
+}
+
+.quest-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.quest-btn {
+    margin: 0px 0px;
+    padding: 2px 4px;
+}
+
+.quest-radio-group {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.quest-radio-item {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+@media only screen and (max-width: 900px) {
+    .quest-info-container-sm {
+        display: none;
+    }
+}
+
+.quest-font-md {
+    font-size: calc(0.9em + 0.5vw);
+}
+
+.quest-font-sm {
+    font-size: calc(0.6em + 0.3vw);
+}

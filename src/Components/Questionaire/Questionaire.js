@@ -1,5 +1,6 @@
-//import './Questionaire.css';
+import './Questionaire.css';
 import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Questionaire({ currentQuestion,
     setCurrentQuestion,
@@ -11,7 +12,7 @@ function Questionaire({ currentQuestion,
 
     const renderNextButton = () => {
         if (currentQuestion < totalQuestions) {
-            return <button onClick={() => setCurrentQuestion(currentQuestion + 1)}>Next</button>
+            return <button className="quest-btn" onClick={() => setCurrentQuestion(currentQuestion + 1)}>Next</button>
         } else {
             return <button>Complete</button>
         }
@@ -23,16 +24,30 @@ function Questionaire({ currentQuestion,
     }
 
     return (
-        <div>
-            <h1>For whom do you wish to estimate carbon?</h1>
-            <div className="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked></input>
-                <label class="form-check-label" for="exampleRadios1">
-                   individual
-                    </label>
+        <div className="questionaire-container">
+            <div className="quest-main-container">
+                <h3 className="quest-font-md">For whom do you wish to estimate carbon?</h3>
+                <div className="quest-radio-group">
+                    <div className="quest-radio-item">
+                        <input type="radio" id="individual" name="estimateType" value="individual" checked></input>
+                        <label for="individual"><FontAwesomeIcon icon="user" />Individual</label>
+                    </div>
+                    <div className="quest-radio-item">
+                        <input type="radio" id="company" name="estimateType" value="company"></input>
+                        <label for="company"><FontAwesomeIcon icon="building" />Company</label>
+                    </div>
+                    <div className="quest-radio-item">
+                        <input type="radio" id="communityGroup" name="estimateType" value="communityGroup"></input>
+                        <label for="commnuityGroup"><FontAwesomeIcon icon="users" />Community Group</label>
+                    </div>                    
+                </div>
+                <div className="quest-btn-container quest-font-sm">
+                    <button className="quest-btn" onClick={() => previousQuestion()}>Back</button>
+                    {renderNextButton()}
+                </div>
             </div>
-            <button onClick={() => previousQuestion()}>Back</button>
-            {renderNextButton()}
+            <div className="quest-info-container quest-info-container-sm">Test 2</div>
+
         </div>
     );
 }
