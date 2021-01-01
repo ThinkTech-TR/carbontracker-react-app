@@ -29,16 +29,16 @@ function Questionaire({ currentQuestion,
                 <h3 className="quest-font-md">For whom do you wish to estimate carbon?</h3>
                 <div className="quest-radio-group">
                     <div className="quest-radio-item">
-                        <input type="radio" id="individual" name="estimateType" value="individual" checked></input>
-                        <label for="individual"><FontAwesomeIcon icon="user" />Individual</label>
+                        <input type="radio" id="individual" name="estimateType" value="individual" defaultChecked></input>
+                        <label htmlFor="individual"><FontAwesomeIcon icon="user" />Individual</label>
                     </div>
                     <div className="quest-radio-item">
                         <input type="radio" id="company" name="estimateType" value="company"></input>
-                        <label for="company"><FontAwesomeIcon icon="building" />Company</label>
+                        <label htmlFor="company"><FontAwesomeIcon icon="building" />Company</label>
                     </div>
                     <div className="quest-radio-item">
                         <input type="radio" id="communityGroup" name="estimateType" value="communityGroup"></input>
-                        <label for="commnuityGroup"><FontAwesomeIcon icon="users" />Community Group</label>
+                        <label htmlFor="commnuityGroup"><FontAwesomeIcon icon="users" />Community Group</label>
                     </div>                    
                 </div>
                 <div className="quest-btn-container quest-font-sm">

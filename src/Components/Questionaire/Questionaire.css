@@ -7,10 +7,9 @@ h2 {
 .questionaire-container {
     display: flex;
     flex-direction: row;
-    flex-grow: 1;
     width: 100%;
     height: 100%;
-}
+}   
 
 .quest-main-container {
     display: flex;
@@ -18,6 +17,7 @@ h2 {
     border: 1px black solid;
     flex: 2 2 45%;
     padding: 10px;
+    justify-content: space-between;
 }
 
 .quest-info-container {
@@ -47,6 +47,8 @@ h2 {
     display: flex;
     flex-direction: row;
     align-items: baseline;
+    font-size: calc(0.5em + 0.6vh + 0.6vh);
+    margin: 5px;
 }
 
 @media only screen and (max-width: 900px) {
@@ -56,9 +58,9 @@ h2 {
 }
 
 .quest-font-md {
-    font-size: calc(0.9em + 0.5vw);
+    font-size: calc(1em + 0.5vw + 0.3vh);
 }
 
 .quest-font-sm {
-    font-size: calc(0.6em + 0.3vw);
+    font-size: calc(0.6em + 0.3vh + 0.3vh);
 }
