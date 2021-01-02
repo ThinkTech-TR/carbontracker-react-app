@@ -1,6 +1,7 @@
 import './Questionaire.css';
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import people from './people.png'
 
 function Questionaire({ currentQuestion,
     setCurrentQuestion,
@@ -52,7 +53,9 @@ function Questionaire({ currentQuestion,
                     {renderNextButton()}
                 </div>
             </div>
-            <div className="quest-info-container quest-info-container-sm">Test 2</div>
+            <div className="quest-info-container quest-info-container-sm">
+            <img src={people} className="quest-img" alt="People"></img>
+            </div>
 
         </div>
     );

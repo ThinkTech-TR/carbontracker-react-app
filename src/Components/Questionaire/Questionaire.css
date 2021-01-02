@@ -4,7 +4,6 @@ h2 {
 }
 
 /* Questionaire Classes */
-
 .questionaire-container {
     display: flex;
     flex-direction: row;
@@ -21,10 +20,17 @@ h2 {
     justify-content: space-between;
 }
 
+.quest-img {
+    width: 300px;
+}
+
 .quest-info-container {
     display: flex;
+    flex-direction: column;
     border: 1px black solid;
     flex: 3 3 55%;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .quest-btn-container {
