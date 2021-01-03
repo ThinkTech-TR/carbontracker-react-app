@@ -26,11 +26,11 @@ button:hover {
 .landing-container {
     display: flex;
     flex-direction: column;
-    width: 100%; 
-    height: 100%; 
+    width: 90%; 
     padding: 20px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: auto;
 }
 
 .actions-container {
@@ -78,11 +78,6 @@ button:hover {
 /* Animations */
 :root {
     --animate-delay: 2s;
-  }
-
-  
-  @keyframes __fadeInRight {
-    from, to { overflow: hidden; } 
   }
 
 

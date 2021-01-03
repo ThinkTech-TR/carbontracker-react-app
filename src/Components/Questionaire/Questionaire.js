@@ -2,6 +2,9 @@ import './Questionaire.css';
 import Radio from "./Radio";
 import people from './people.png'
 import React from "react";
+import {
+    Link
+} from "react-router-dom";
 
 function Questionaire({ currentQuestion,
     setCurrentQuestion,
@@ -15,7 +18,8 @@ function Questionaire({ currentQuestion,
             radioButtons: [
                 { option: "Individual", icon: "user" },
                 { option: "Company", icon: "building" },
-                { option: "Community Group", icon: "users" }]
+                { option: "Community Group", icon: "users" }],
+            picture: "people"
         },
         {
             question: "How would you describe your diet?",
@@ -44,7 +48,34 @@ function Questionaire({ currentQuestion,
             { option: "1000 - 5000" },
             { option: "5000 - 10,000" },
             { option: "> 10,000" }
-        ]}
+        ]},
+        { question: "How many people live in your household?",  radioButtons: [
+            { option: "1" },
+            { option: "2" },
+            { option: "3" },
+            { option: "4" },
+            { option: "5" },
+            { option: "6" },
+            { option: ">6" }
+        ]},
+        { question: "What type of accomodation do you live in?",  radioButtons: [
+            { option: "1" },
+            { option: "2" },
+            { option: "3" },
+            { option: "4" },
+            { option: "5" },
+            { option: "6" },
+            { option: ">6" }
+        ]},
+        { question: "When was your accomodation built?",  radioButtons: [
+            { option: "1" },
+            { option: "2" },
+            { option: "3" },
+            { option: "4" },
+            { option: "5" },
+            { option: "6" },
+            { option: ">6" }
+        ]},
     ];
 
 
@@ -54,13 +85,13 @@ function Questionaire({ currentQuestion,
         }).replace(/\s+/g, '');
     };
 
-    const totalQuestions = 4;
-
     const renderNextButton = () => {
-        if (currentQuestion < totalQuestions - 1) {
+        if (currentQuestion < questions.length - 1) {
             return <button className="quest-btn" onClick={() => setCurrentQuestion(currentQuestion + 1)}>Next</button>
         } else {
-            return <button className="quest-btn">Finish</button>
+            return <Link to="/signup">
+                <button className="quest-btn">Finish</button>
+            </Link>
         }
     }
     const previousQuestion = () => {
