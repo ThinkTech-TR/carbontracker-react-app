@@ -1,7 +1,7 @@
 import './Questionaire.css';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Radio from "./Radio";
 import people from './people.png'
-import React, { useState } from "react";
+import React from "react";
 
 function Questionaire({ currentQuestion,
     setCurrentQuestion,
@@ -9,12 +9,50 @@ function Questionaire({ currentQuestion,
     updateUserData
 }) {
 
-    const [questions, setQuestions] = useState([
-        { question: "For whom do you wish to estimate carbon?", completed: false, date: "2019-09-20" },
-        { question: "How would you describe your diet?", completed: true, date: "2019-09-18" },
-        { question: "What type of car do you own or use?", completed: true, date: "2019-09-22" },
-        { question: "How many miles do you drive each year?", completed: true, date: "2019-09-22" }
-      ]);
+    const questions = [
+        {
+            question: "For whom do you wish to estimate carbon?",
+            radioButtons: [
+                { option: "Individual", icon: "user" },
+                { option: "Company", icon: "building" },
+                { option: "Community Group", icon: "users" }]
+        },
+        {
+            question: "How would you describe your diet?",
+            radioButtons: [
+                { option: "Eat meat at most meals", icon: "hamburger" },
+                { option: "Occasionally eat meat", icon: "drumstick-bite" },
+                { option: "Pescatarian", icon: "fish" },
+                { option: "Vegetarian", icon: "cheese" },
+                { option: "Vegan", icon: "carrot" },
+            ]
+        },
+        {
+            question: "What type of car do you own or use?",
+            radioButtons: [
+                { option: "Only use public transport"},
+                { option: "Electric car" },
+                { option: "Plug-in Hybrid car" },
+                { option: "Hybrid car" },
+                { option: "Small petrol or diesel car" },
+                { option: "Medium petrol or diesel car" },
+                { option: "Large petrol or diesel car" }
+            ]
+        },
+        { question: "How many miles do you travel by car each year?",  radioButtons: [
+            { option: "< 1000" },
+            { option: "1000 - 5000" },
+            { option: "5000 - 10,000" },
+            { option: "> 10,000" }
+        ]}
+    ];
+
+
+    const optionToCamelCase = (option) => {
+        return option.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+            return index === 0 ? word.toLowerCase() : word.toUpperCase();
+        }).replace(/\s+/g, '');
+    };
 
     const totalQuestions = 4;
 
@@ -36,33 +74,20 @@ function Questionaire({ currentQuestion,
             <div className="quest-main-container">
                 <div className="quest-radio-group">
                     <h3 className="quest-font-md">{questions[currentQuestion].question}</h3>
-                    <label className="quest-radio-item" htmlFor="individual">
-                        <input type="radio" id="individual" name="estimateType" value="individual" defaultChecked></input>
-                        <div className="checkmark"></div>
-                        <div className="margin-left-sm" ><FontAwesomeIcon icon="user" /></div>
-                        <div className="margin-left-xsm">Individual</div>                        
-                    </label>
-                    <label className="quest-radio-item" htmlFor="company">
-                        <input type="radio" id="company" name="estimateType" value="company"></input>
-                        <span className="checkmark"></span>
-                        <span className="margin-left-sm" ><FontAwesomeIcon icon="building" /></span>
-                        <span className="margin-left-xsm">Company</span>                        
-                    </label>
-                    <label className="quest-radio-item" htmlFor="communityGroup">
-                        <input type="radio" id="communityGroup" name="estimateType" value="communityGroup"></input>
-                        <span className="checkmark"></span>
-                        <span className="margin-left-sm" ><FontAwesomeIcon icon="users" /></span>
-                        <span className="margin-left-xsm">Community Group</span>                        
-                    </label>
+                    {questions[currentQuestion].radioButtons.map((r, i) => <Radio key={optionToCamelCase(r.option)}
+                        identifier={optionToCamelCase(r.option)}
+                        option={r.option}
+                        icon={r.icon}
+                        checkedDefault={i === 0} />)}
                     <div className="quest-btn-container quest-font-sm">
-                    <button className="quest-btn" onClick={() => previousQuestion()}>Back</button>
-                    {renderNextButton()}
+                        <button className="quest-btn" onClick={() => previousQuestion()}>Back</button>
+                        {renderNextButton()}
+                    </div>
                 </div>
-                </div>
-               
+
             </div>
             <div className="quest-info-container quest-info-container-sm">
-            <img src={people} className="quest-img" alt="People"></img>
+                <img src={people} className="quest-img" alt="People"></img>
             </div>
 
         </div>
