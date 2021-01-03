@@ -1,4 +1,6 @@
+import React,{ useReducer, useState} from 'react';
 import "./Login.css";
+/*
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import { Row } from "react-bootstrap";
@@ -7,10 +9,60 @@ import { Col } from "react-bootstrap";
 import { Button} from "react-bootstrap";
 import { FiFacebook } from "react-icons/fi";
 import { FcGoogle} from "react-icons/fc"
+*/
 
+const fromReducer = (state, event) => {
+    return {...state,
+            [event.name]: event.value
+            };
+}
 
 function Login() {
+    const [formData, setFormData] = useReducer(fromReducer, {});
+    const [submitting, setSubmitting] = useState(false);
+    const handleSubmit = async e => {
+                                    e.preventDefault();
+                                    setSubmitting(true);
+
+                                    setTimeout(() => {
+                                        setSubmitting(false);
+                                    }, 3000)
+                                    }
+    
+    const handleChange = event => {
+        setFormData({name: event.target.name,
+            value: event.target.value});
+    }   
+
   return (
+            <div className="loginForm">
+                {submitting && 
+                    <div>
+                        You are submitting  the following:
+                        <ul>
+                            {Object.entries(formData).map(([name, value]) => (
+                                <li key={name}><strong>{name}</strong>:{value.toString()}</li>
+                            ))}
+                        </ul>
+                    </div>
+                }
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label for='emailInput' className='visuallyhidden'>Email</label>
+                        <input name='email' placeholder="Enter an email" size = '30' type='email' onChange={handleChange}></input>
+                    </div>
+                    <div>
+                        <label for='passwordInput' className='visuallyhidden'>Password</label>
+                        <input name='password' placeholder='Enter a password' type='password' onChange={handleChange}></input>
+                    </div>
+                    <div>
+                        <button type="submit" calss="centerButton">Log in</button>
+                    </div>
+                </form>
+                    
+            </div>
+
+            /*
             <Container className="loginContainer">
                 <Row className="row">
                     <div>
@@ -40,6 +92,7 @@ function Login() {
                     </Col>
                 </Row>
             </Container>
+            */
         );
 }
 export default Login;
