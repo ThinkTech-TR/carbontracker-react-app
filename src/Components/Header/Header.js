@@ -30,7 +30,8 @@ function Header() {
                         </div>
                     </div>  
                     
-                    <Link to="/login"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Sign in</button></Link> 
+                    <Link to="/signup"><button type="button" className="btn btn-outline-success d-none d-md-block">Sign up</button></Link> 
+                    <Link to="/login"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log in</button></Link> 
                     {!showAvatar && <button type="button" className="btn"><i className="fas fa-user fa-2x"></i></button>}
                     {showAvatar && <Avatar/>}
 

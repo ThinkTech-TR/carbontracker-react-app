@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Header from './Components/Header/Header'
 import Login from './Components/Login/Login'
+import Signup from './Components/Signup/Signup'
 import Landing from './Components/Landing/Landing'
 import Questionaire from './Components/Questionaire/Questionaire'
 
@@ -35,6 +36,7 @@ function App() {
                 <Header></Header>
                 <Switch>
                     <Route path="/login"><Login /></Route>
+                    <Route path="/signup"><Signup /></Route>
                     <Route path="/questionaire">< Questionaire 
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
