@@ -14,7 +14,7 @@ import Footer from './Components/Footer/Footer'
 
 function App() {
 
-    const [currentQuestion, setCurrentQuestion] = useState(1);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
 
     const [userData, setUserData] = useState({
         entityType: '',

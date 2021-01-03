@@ -28,7 +28,7 @@ button:hover {
     flex-direction: column;
     width: 100%; 
     height: 100%; 
-    margin-top: 20px;
+    padding: 20px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -80,6 +80,10 @@ button:hover {
     --animate-delay: 2s;
   }
 
+  
+  @keyframes __fadeInRight {
+    from, to { overflow: hidden; } 
+  }
 
 
   /*   F7D978  - Yellow
