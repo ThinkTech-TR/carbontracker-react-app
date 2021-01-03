@@ -7,10 +7,20 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { faHamburger } from "@fortawesome/free-solid-svg-icons";
+import { faDrumstickBite } from "@fortawesome/free-solid-svg-icons";
+import { faFish } from "@fortawesome/free-solid-svg-icons";
+import { faCheese } from "@fortawesome/free-solid-svg-icons";
+import { faCarrot } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faUser);
 library.add(faUsers);
 library.add(faBuilding);
+library.add(faHamburger);
+library.add(faDrumstickBite);
+library.add(faFish);
+library.add(faCheese);
+library.add(faCarrot);
 
 ReactDOM.render(
   <React.StrictMode>
