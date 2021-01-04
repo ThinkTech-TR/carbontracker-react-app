@@ -8,7 +8,7 @@ React.useEffect(() => {
         console.log("unmount");
     }
 },[]);
-return <button type="button" className="btn">
- <img src="/images/loggedIn.png" alt="Avatar" className="user-actions"/> 
+return <button type="button" className="btn d-none d-md-block">
+ <img src="/images/loggedIn.png" alt="Avatar" /> 
 </button>
 }
