@@ -19,10 +19,10 @@ function Signup() {
                     </div>
                     <Col xs={12} md={6}>
                         <h3 className="visuallyhidden">Sign up with Email</h3>
-                        <label for="email_input" className="visuallyhidden">Email</label>
+                        <label htmlFor="email_input" className="visuallyhidden">Email</label>
                         <input id="email_input"></input>
                         <br></br>
-                        <label for="password_input" className="visuallyhidden">Password</label>
+                        <label htmlFor="password_input" className="visuallyhidden">Password</label>
                         <input id="password_input"></input>
                         <br></br>
                         <Button variant="outline-success" className="loginButton">Sign up</Button>

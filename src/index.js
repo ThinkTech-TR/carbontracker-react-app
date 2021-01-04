@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { Auth0Provider } from '@auth0/auth0-react'; // import Auth0Provider for authentification
 import reportWebVitals from './reportWebVitals';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -23,9 +24,15 @@ library.add(faCheese);
 library.add(faCarrot);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Auth0Provider
+    domain ='dev-3pypm-6h.eu.auth0.com'
+    clientId='rS0dsu533kPe14Df9v0SVx1RnlfBDKeK'
+    redirectUri={window.location.origin}
+  >
+    <React.StrictMode>
+     <App />
+    </React.StrictMode>,
+  </Auth0Provider>,
   document.getElementById('root')
 );
 

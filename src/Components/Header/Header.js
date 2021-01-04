@@ -32,6 +32,7 @@ function Header() {
                     
                     <Link to="/signup"><button type="button" className="btn btn-outline-success d-none d-md-block">Sign up</button></Link> 
                     <Link to="/login"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log in</button></Link> 
+                    <Link to="/logout"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log out</button></Link> 
                     {!showAvatar && <button type="button" className="btn"><i className="fas fa-user fa-2x"></i></button>}
                     {showAvatar && <Avatar/>}
 

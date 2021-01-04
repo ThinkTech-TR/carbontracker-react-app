@@ -1,6 +1,20 @@
+import { useAuth0 } from "@auth0/auth0-react";
+
+
+function Login () {
+    setTimeout(() => {
+        console.log('you can see me after 2 seconds')
+    }, 5000);
+    
+    const { loginWithRedirect } = useAuth0();
+    loginWithRedirect();
+    return null;
+};
+
+export default Login;
+/*
 import React,{ useReducer, useState} from 'react';
 import "./Login.css";
-/*
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 import { Row } from "react-bootstrap";
@@ -11,6 +25,7 @@ import { FiFacebook } from "react-icons/fi";
 import { FcGoogle} from "react-icons/fc"
 */
 
+/*
 const fromReducer = (state, event) => {
     return {...state,
             [event.name]: event.value
@@ -48,12 +63,12 @@ function Login() {
                 }
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label for='emailInput' className='visuallyhidden'>Email</label>
-                        <input name='email' placeholder="Enter an email" size = '30' type='email' onChange={handleChange}></input>
+                        <label htmlFor='emailInput' className='visuallyhidden'>Email</label>
+                        <input name='email' placeholder="Enter an email" size = '30' type='email' id='emailInput' onChange={handleChange}></input>
                     </div>
                     <div>
-                        <label for='passwordInput' className='visuallyhidden'>Password</label>
-                        <input name='password' placeholder='Enter a password' type='password' onChange={handleChange}></input>
+                        <label htmlFor='passwordInput' className='visuallyhidden'>Password</label>
+                        <input name='password' placeholder='Enter a password' type='password' id='passwordInput' onChange={handleChange}></input>
                     </div>
                     <div>
                         <button type="submit" calss="centerButton">Log in</button>
@@ -92,7 +107,10 @@ function Login() {
                     </Col>
                 </Row>
             </Container>
-            */
+  
         );
 }
+
+
 export default Login;
+*/
