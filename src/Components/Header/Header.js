@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import './Header.css';
 import {Avatar} from './Avatar';
 import {
@@ -9,6 +10,9 @@ function Header() {
 
     const [showAvatar, setShowAvatar] = useState(false);
 
+    const {userinfo, isAuthenticated} = useAuth0();
+
+    
     return (
                 <header className="header">
                     <div className="header-container">
@@ -31,8 +35,12 @@ function Header() {
                     </div>  
                     
                     <Link to="/signup"><button type="button" className="btn btn-outline-success d-none d-md-block">Sign up</button></Link> 
-                    <Link to="/login"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log in</button></Link> 
-                    <Link to="/logout"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log out</button></Link> 
+                    {!isAuthenticated 
+                        ? <Link to="/login"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log in</button></Link>
+                        : <Link to="/logout"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log out</button></Link>
+                    }
+                    {/*<Link to="/login"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log in</button></Link> 
+                    <Link to="/logout"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log out</button></Link> */}
                     {!showAvatar && <button type="button" className="btn"><i className="fas fa-user fa-2x"></i></button>}
                     {showAvatar && <Avatar/>}
 
