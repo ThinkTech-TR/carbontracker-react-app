@@ -99,22 +99,24 @@ function Questionaire({ currentQuestion,
     ];
 
     let history = useHistory();
-    const handleKeyPress = useCallback(e => {
-        if (e.code === "Enter") {
-            if (currentQuestion < questions.length - 1) {
-                setCurrentQuestion(currentQuestion + 1)
-            } else {
-                history.push("/signup")
-            }
-        }
-    });
-
+   
     useEffect(() => {
+
+        const handleKeyPress = (e) => {
+            if (e.code === "Enter") {
+                if (currentQuestion < questions.length - 1) {
+                    setCurrentQuestion(currentQuestion + 1)
+                } else {
+                    history.push("/signup")
+                }
+            }
+        };
+
         window.addEventListener('keydown', handleKeyPress);
         return () => {
             window.removeEventListener('keydown', handleKeyPress)
         }
-    }, [handleKeyPress])
+    }, [currentQuestion, history, questions.length, setCurrentQuestion])
 
     const optionToCamelCase = (option) => {
         return option.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
@@ -139,7 +141,7 @@ function Questionaire({ currentQuestion,
     }
 
     return (
-        <div className="questionaire-container" onKeyPress={handleKeyPress}>
+        <div className="questionaire-container">
             <div className="quest-main-container">
                 <div className="quest-radio-group">
                     <h3 className="quest-font-md">{questions[currentQuestion].question}</h3>
