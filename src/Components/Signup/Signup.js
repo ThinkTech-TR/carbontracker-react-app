@@ -9,9 +9,13 @@ import { FiFacebook } from "react-icons/fi";
 import { FcGoogle} from "react-icons/fc"
 
 
+
+
+
 function Signup() {
   return (
             <Container className="loginContainer">
+                
                 <Row className="row">
                     <div>
                         <p>Sign up in to Carbon Tracker App. Calculating your carbon footprint can help you to prioritise the steps

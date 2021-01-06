@@ -8,6 +8,7 @@ import {
 import Header from './Components/Header/Header'
 import Login from './Components/Login/Login'
 import Logout from './Components/Logout/Logout'
+import Results from './Components/Results/Results'
 import Signup from './Components/Signup/Signup'
 import Landing from './Components/Landing/Landing'
 import Questionaire from './Components/Questionaire/Questionaire'
@@ -39,6 +40,7 @@ function App() {
                     <Route path="/login"><Login /></Route>
                     <Route path="/logout"><Logout /></Route>
                     <Route path="/signup"><Signup /></Route>
+                    <Route path="/results"><Results /></Route>
                     <Route path="/questionaire">< Questionaire 
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}

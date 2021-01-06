@@ -27,12 +27,12 @@ h2 {
 
 .quest-info-container {
     display: flex;
-    flex-direction: column;
-    border-left: #31AA1C solid 1px;
+    flex-direction: column;   
     flex: 3 3 55%;
     justify-content: space-around;
     align-items: center;
     background-color: #90CC21; 
+    border-left: #31AA1C solid 1px;
 }
 
 .quest-btn-container {
