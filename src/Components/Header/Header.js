@@ -10,15 +10,9 @@ function Header() {
 
     const [showAvatar, setShowAvatar] = useState(false);
 
-<<<<<<< HEAD
-    const { userinfo, isAuthenticated } = useAuth0();
-
-
-=======
     const {userinfo, isAuthenticated} = useAuth0();
 
     
->>>>>>> ab575aa11d629a19d37e9de5688377ecd39d508d
     return (
         <header className="header">
             <div className="header-container">
