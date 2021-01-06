@@ -19,15 +19,19 @@ function App() {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
 
-    const [userData, setUserData] = useState({
-        entityType: '',
-        diet: '',
-        transportType: ''
-    })
+    const [questData, setQuestData] = useState({
+        entityType: "individual",
+        diet: "frequentMeatEater",
+        carUsage: "noCar",
+        carMileage: "lessThan1000",
+        numberInHousehold: "1",
+        houseType:  "detached",
+        houseAge: "pre1919"
+    });
 
-    const updateUserData = e => {
-        setUserData({
-          ...userData,
+     const updateQuestData = e => {
+        setQuestData({
+          ...questData,
           [e.target.name]: e.target.value
         });
       };
@@ -44,8 +48,8 @@ function App() {
                     <Route path="/questionaire">< Questionaire 
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
-                        userData={userData}
-                        updateUserData={updateUserData} />
+                        questData={questData}
+                        updateQuestData={updateQuestData} />
                     </Route>
                     <Route path="/"><Landing /></Route>
                 </Switch>
