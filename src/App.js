@@ -38,7 +38,7 @@ function App() {
     
     return (
         <div className="App">
-            <Router className="main-page">
+            <Router>
                 <Header></Header>
                 <Switch>
                     <Route path="/login"><Login /></Route>
