@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import './Header.css';
 import { Avatar } from './Avatar';
@@ -6,13 +6,15 @@ import {
     Link
 } from "react-router-dom";
 
+
+
 function Header() {
 
     const [showAvatar, setShowAvatar] = useState(false);
 
-    const {userinfo, isAuthenticated} = useAuth0();
+    const { userinfo, isAuthenticated } = useAuth0();
 
-    
+
     return (
         <header className="header">
             <div className="header-container">
@@ -26,11 +28,15 @@ function Header() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <div className="navbar-nav">
                             <Link to="/" className="nav-item nav-link active">Home</Link>
-                            <a className="nav-item nav-link active disabled" href="#">Track</a>
-                            <a className="nav-item nav-link disabled" href="#">Analyze<span className="sr-only">(current)</span></a>
-                            <a className="nav-item nav-link disabled" href="#">Learn</a>
-                            <a className="nav-item nav-link disabled" href="#">Teams</a>
-                            <a className="nav-item nav-link disabled" href="#">Feed</a>
+                            {isAuthenticated &&
+                                <div className="navbar-nav">
+                                    <Link to="/" className="nav-item nav-link active">Track</Link>
+                                    <Link to="/" className="nav-item nav-link active">Analyze</Link>
+                                    <Link to="/" className="nav-item nav-link active">Learn</Link>
+                                    <Link to="/" className="nav-item nav-link active">Teams</Link>
+                                    <Link to="/" className="nav-item nav-link active">Feed</Link>
+                                </div>
+                            }
                         </div>
                     </div>
                     {!isAuthenticated && <Link to="/login"><button type="button" className="btn btn-outline-success d-none d-md-block">Sign up</button></Link>}
