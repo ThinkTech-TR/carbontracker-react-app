@@ -5,7 +5,6 @@ import car from './car.png'
 import food from './food.png'
 import house from './house.png'
 import React, { useEffect } from "react";
-import { useCallback } from "react";
 import { useHistory } from 'react-router-dom';
 import {
     Link
