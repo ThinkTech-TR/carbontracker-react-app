@@ -59,7 +59,7 @@ class ApexChart extends React.Component {
                         </div>
                     </Col>
                     <Col xs={12} md={6}>
-                        <b><p>Your carbon footprint can be much lower. Try to reduce your flights to help out the planer</p></b>
+                        <b><p>Your carbon footprint can be much lower. Try to reduce your flights to help out the planet</p></b>
                         <ul className="list-group" style={{columns: 2}}>
                             <li className="list-group-item">Flights <span className="badge">70</span></li>
                             <li className="list-group-item">Transport <span className="badge">50</span></li>
