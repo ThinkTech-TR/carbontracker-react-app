@@ -18,7 +18,7 @@ function Header() {
             <div className="header-container">
                 <nav className="navbar navbar-expand-lg green-border navigation">
                     <a className="navbar-brand green" href="index.html">
-                        <h3 className="font-lg"><i className="fas fa-tree"></i><span className="pl-4">Carby</span></h3>
+                        <h3 className="font-lg"><img src="/images/carbon-footprint-logo-mini.jpg" alt="BeGreen logo" /><span className="pl-4">BeGreen</span></h3>
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
