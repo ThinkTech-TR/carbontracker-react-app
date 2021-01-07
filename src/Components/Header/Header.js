@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import './Header.css';
 import { Avatar } from './Avatar';
@@ -12,7 +12,7 @@ function Header() {
 
     const [showAvatar, setShowAvatar] = useState(false);
 
-    const { userinfo, isAuthenticated } = useAuth0();
+    const { isAuthenticated } = useAuth0();
 
 
     return (
