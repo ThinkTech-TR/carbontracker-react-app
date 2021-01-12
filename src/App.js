@@ -21,31 +21,44 @@ function App() {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
 
-    const {user, isAuthenticated } = useAuth0();
+    const { user } = useAuth0();
 
-    const [questData, setQuestData] = useState({
-        entityType: "individual",
-        diet: "frequentMeatEater",
-        carUsage: "noCar",
-        carMileage: "lessThan1000",
-        numberInHousehold: "1",
-        houseType:  "detached",
-        houseAge: "pre1919"
-    });
+    const getQuestData = () => {
+        const data =  sessionStorage.getItem("questData");
+        console.log("getSessionState: " + data);
+        if (data){
+            return JSON.parse(data);
+        };
+        return  {
+            userCategory: "individual",
+            diet: "frequentMeatEater",
+            carUsage: "noCar",
+            carMileage: "lessThan1000",
+            numberInHousehold: "1",
+            houseType: "detached",
+            houseAge: "pre1919"
+        };
+    }
 
-    useEffect(() => {
-       console.log(questData);
-       console.log(user === undefined ? "unknown" : user.sub);   
-       console.log(isAuthenticated);  
+    const [questData, setQuestData] = useState(() => {
+        const initialQuestData = getQuestData();
+        return initialQuestData;
     });
 
     const updateQuestData = e => {
         setQuestData({
-          ...questData,
-          [e.target.name]: e.target.value
-        });
-      };
-    
+            ...questData,
+            [e.target.name]: e.target.value
+        });   
+    };
+
+    useEffect(() => {
+        console.log(user === undefined ? "unknown" : user.sub);
+        const questDataAsString =  JSON.stringify(questData)
+        sessionStorage.setItem("questData", questDataAsString);
+        console.log("saveSessionState: " + questDataAsString);
+    }, [user, questData]);
+
     return (
         <div className="App">
             <Router>
@@ -55,7 +68,7 @@ function App() {
                     <Route path="/logout"><Logout /></Route>
                     <Route path="/signup"><Signup /></Route>
                     <Route path="/results"><Results /></Route>
-                    <Route path="/questionaire">< Questionaire 
+                    <Route path="/questionaire">< Questionaire
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
                         questData={questData}

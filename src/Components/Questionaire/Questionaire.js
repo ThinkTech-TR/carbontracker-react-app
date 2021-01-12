@@ -20,7 +20,7 @@ function Questionaire({ currentQuestion,
     const questions = [
         {
             question: "For whom do you wish to estimate carbon?",
-            questDataItem: "entityType",
+            questDataItem: "userCategory",
             radioButtons: [
                 { option: "Individual", value: "individual", icon: "user" },
                 { option: "Company", value: "company", icon: "building" },
