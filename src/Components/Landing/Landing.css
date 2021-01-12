@@ -1,14 +1,3 @@
-/* Standard Elements */
-h1 {
-    margin: 20px;
-    text-align: left;
-}
-
-p {
-    text-align: left;
-    margin: 20px;
-}
-
 /* Landing Classes */
 .landing-container {
     display: flex;
@@ -66,17 +55,3 @@ p {
 :root {
     --animate-delay: 2s;
   }
-
-
-  /*   F7D978  - Yellow
-EBC156 - another yellow
-#13ee71  - light green
-B23F58  - red / pine
-F7F7F1 - white
-323D68 - dark blueA
-31AA1C - dark green
-AB1116 - bright red
-F43423 - red
-EF7622 - orange
-E8BE4E - yellow
-FBD415 - bright yellow */

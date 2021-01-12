@@ -11,6 +11,8 @@ import Logout from './Components/Logout/Logout'
 import Results from './Components/Results/Results'
 import Signup from './Components/Signup/Signup'
 import Landing from './Components/Landing/Landing'
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from "react";
 import Questionaire from './Components/Questionaire/Questionaire'
 
 import Footer from './Components/Footer/Footer'
@@ -18,6 +20,8 @@ import Footer from './Components/Footer/Footer'
 function App() {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
+
+    const {user, isAuthenticated } = useAuth0();
 
     const [questData, setQuestData] = useState({
         entityType: "individual",
@@ -29,7 +33,13 @@ function App() {
         houseAge: "pre1919"
     });
 
-     const updateQuestData = e => {
+    useEffect(() => {
+       console.log(questData);
+       console.log(user === undefined ? "unknown" : user.sub);   
+       console.log(isAuthenticated);  
+    });
+
+    const updateQuestData = e => {
         setQuestData({
           ...questData,
           [e.target.name]: e.target.value
