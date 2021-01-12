@@ -20,7 +20,7 @@ function Questionaire({ currentQuestion,
     const questions = [
         {
             question: "For whom do you wish to estimate carbon?",
-            questDataItem: "entityType",
+            questDataItem: "userCategory",
             radioButtons: [
                 { option: "Individual", value: "individual", icon: "user" },
                 { option: "Company", value: "company", icon: "building" },
@@ -164,8 +164,8 @@ function Questionaire({ currentQuestion,
                         isChecked={isRadioChecked(r.value)}
                         updateRadio={updateRadio} />)}
                     <div className="quest-btn-container quest-font-sm">
-                        <button className="quest-btn" onClick={() => previousQuestion()}>Back</button>
-                        <button className="quest-btn" onClick={moveToNextQuestion}>{nextButtonLabel}</button>
+                        <button className="quest-btn button-green" onClick={() => previousQuestion()}>Back</button>
+                        <button className="quest-btn button-green" onClick={moveToNextQuestion}>{nextButtonLabel}</button>
                     </div>
                 </div>
             </div>
