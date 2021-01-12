@@ -36,9 +36,9 @@ function Landing() {
             impact on the planet.
             </p>
 
-            <div className="carbon-button">
+            <div className="carbon-button-container">
                 <Link to="/questionaire">
-                    <button type="button">
+                    <button type="button" className="button-landing">
                         <div className="font-md padding-sm">Estimate Your Carbon Footprint</div>
                         <div className="font-sm padding-sm">Start tracking today</div>
                     </button>
