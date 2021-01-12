@@ -38,7 +38,7 @@ function Landing() {
 
             <div className="carbon-button-container">
                 <Link to="/questionaire">
-                    <button type="button" className="button-landing">
+                    <button type="button" className="button-green">
                         <div className="font-md padding-sm">Estimate Your Carbon Footprint</div>
                         <div className="font-sm padding-sm">Start tracking today</div>
                     </button>

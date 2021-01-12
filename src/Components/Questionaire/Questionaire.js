@@ -164,8 +164,8 @@ function Questionaire({ currentQuestion,
                         isChecked={isRadioChecked(r.value)}
                         updateRadio={updateRadio} />)}
                     <div className="quest-btn-container quest-font-sm">
-                        <button className="quest-btn" onClick={() => previousQuestion()}>Back</button>
-                        <button className="quest-btn" onClick={moveToNextQuestion}>{nextButtonLabel}</button>
+                        <button className="quest-btn button-green" onClick={() => previousQuestion()}>Back</button>
+                        <button className="quest-btn button-green" onClick={moveToNextQuestion}>{nextButtonLabel}</button>
                     </div>
                 </div>
             </div>
