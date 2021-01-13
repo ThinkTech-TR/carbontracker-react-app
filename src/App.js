@@ -14,6 +14,7 @@ import Landing from './Components/Landing/Landing'
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
 import Questionaire from './Components/Questionaire/Questionaire'
+import Tracking from "./Components/Tracking/Tracking";
 
 import Footer from './Components/Footer/Footer'
 
@@ -68,6 +69,7 @@ function App() {
                     <Route path="/logout"><Logout /></Route>
                     <Route path="/signup"><Signup /></Route>
                     <Route path="/results"><Results /></Route>
+                    <Route path="/tracking"><Tracking /></Route>
                     <Route path="/questionaire">< Questionaire
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
