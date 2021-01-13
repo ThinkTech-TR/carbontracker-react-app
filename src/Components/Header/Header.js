@@ -13,18 +13,34 @@ function Header() {
 
     const [showAvatar, setShowAvatar] = useState(false);
     const { isAuthenticated } = useAuth0();
+    const navBrandMobile = {
+        margin: 'auto',
+        display: 'block'
+      };
 
     return (
         <header className="header">
             <div className="header-container">
                 <Navbar bg="green" expand="lg">
                     <Navbar.Toggle aria-controls="basic-navbar-nav" className="green-border" />
+                    <Navbar.Brand href="index.html" style={navBrandMobile} className="d-md-block d-lg-none d-md-none d-xl-none font-lg green" >
+                                <img
+                                    alt="BeGreen logo"
+                                    src="/images/carbon-footprint-logo-mini.jpg"
+                                    className="d-inline-block align-center"  
+                                />{' '}  BeGreen
+                        </Navbar.Brand>
                     <Navbar.Collapse id="basic-navbar-nav">
                         {/* <nav className="green-border navigation"> */}
                         <Nav className="mr-auto navbar-nav">
-                            <a className="navbar-brand green" href="index.html">
-                                <h3 className="font-lg"><img src="/images/carbon-footprint-logo-mini.jpg" alt="BeGreen logo" /><span className="pl-4">BeGreen</span></h3>
-                            </a>
+                            <Navbar.Brand href="index.html" className="d-none d-lg-block navbar-brand green font-lg">
+                                <img
+                                    alt="BeGreen logo"
+                                    src="/images/carbon-footprint-logo-mini.jpg"
+                                    className="d-inline-block align-center"
+                                />{' '}  BeGreen
+                        </Navbar.Brand>
+
                             <Nav.Link className="nav-item nav-link active" href="/">Home</Nav.Link>
                             {isAuthenticated && <div className="navbar-nav">
                                 <Nav.Link className="nav-item nav-link active" href="/">Track</Nav.Link>
@@ -34,13 +50,18 @@ function Header() {
                                 <Nav.Link className="nav-item nav-link active" href="/">Feed</Nav.Link>
                             </div>
                             }
-                            {!isAuthenticated && <Link to="/login"><button type="button" className="btn btn-outline-success d-none d-md-block">Sign up</button></Link>}
+                        </Nav>
+                        <Nav className="justify-content-end" activeKey="/home">
+                            {!isAuthenticated && <Link to="/login"><button type="button" className="btn btn-outline-success d-none d-lg-block">Sign up</button></Link>}
+                            {!isAuthenticated && <Nav.Link className="d-md-block d-lg-none d-md-none d-xl-none nav-item nav-link active" href="/login">Sign up</Nav.Link>}
+                            {!isAuthenticated && <Nav.Link className="d-md-block d-lg-none d-md-none d-xl-none nav-item nav-link active" href="/login">Log in</Nav.Link>}
+                            {isAuthenticated && <Nav.Link className="d-md-block d-lg-none d-md-none d-xl-none nav-item nav-link active" onClick={() => setShowAvatar(!showAvatar)} href="/logout">Log out</Nav.Link>}
                             {!isAuthenticated
-                                ? <Link to="/login"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log in</button></Link>
-                                : <Link to="/logout"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-md-block">Log out</button></Link>
+                                ? <Link to="/login"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-lg-block">Log in</button></Link>
+                                : <Link to="/logout"><button type="button" onClick={() => setShowAvatar(!showAvatar)} className="btn btn-outline-success d-none d-lg-block">Log out</button></Link>
                             }
                             {!isAuthenticated
-                                ? <button type="button" className="btn"><i className="fas fa-user fa-2x"></i></button>
+                                ? <Link to="/login"><button type="button" className="btn d-none d-lg-block"><i className="fas fa-user fa-2x"></i></button></Link>
                                 : <Avatar />
                             }
                         </Nav>
