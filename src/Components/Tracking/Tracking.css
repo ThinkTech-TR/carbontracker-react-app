@@ -4,9 +4,11 @@ h2 {
 }
 
 .track-container {
+    display: flex;
     width: 100%;
     height: 100%;
-    /*border-bottom: #31AA1C solid 1px;*/
+    align-items: center;
+    justify-content: center
 }
 
 .chart-container {
@@ -25,12 +27,33 @@ h2 {
     padding: 10px;
 }
 
-@media only screen and (max-width: 768px) {
+.table-track {
+    border: none;
+}
+
+.diet-select {
+    border:0px;
+    outline:0px;
+}
+
+td {
+    white-space:nowrap;
+}
+
+
+.button-day-container {
+    width: 100%;
+}
+.tdButtonBack {
+    text-align: left;
+}
+.tdButtonForward{
+    text-align: right;
+}
+
+@media only screen and (max-width: 576px) {
     .chart-container-sm {
         display: none;
     }
 }
 
-.font-sm {
-    font-size: calc(1vw + 1vh + 0.5vmin);
-}
