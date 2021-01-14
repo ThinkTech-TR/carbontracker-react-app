@@ -41,13 +41,13 @@ function Header() {
                                 />{' '}  BeGreen
                         </Navbar.Brand>
 
-                            <Nav.Link className="nav-item nav-link active" href="/">Home</Nav.Link>
+                            <Nav.Link className="nav-item nav-link active green" href="/">Home</Nav.Link>
                             {isAuthenticated && <div className="navbar-nav">
-                                <Nav.Link className="nav-item nav-link active" href="/tracking">Track</Nav.Link>
-                                <Nav.Link className="nav-item nav-link active" href="/">Analyze</Nav.Link>
-                                <Nav.Link className="nav-item nav-link active" href="/">Learn</Nav.Link>
-                                <Nav.Link className="nav-item nav-link active" href="/">Teams</Nav.Link>
-                                <Nav.Link className="nav-item nav-link active" href="/">Feed</Nav.Link>
+                                <Nav.Link className="nav-item nav-link active green" href="/tracking">Track</Nav.Link>
+                                <Nav.Link className="nav-item nav-link disabled" href="/">Analyze</Nav.Link>
+                                <Nav.Link className="nav-item nav-link disabled" href="/">Learn</Nav.Link>
+                                <Nav.Link className="nav-item nav-link disabled" href="/">Teams</Nav.Link>
+                                <Nav.Link className="nav-item nav-link disabled" href="/">Feed</Nav.Link>
                             </div>
                             }
                         </Nav>
