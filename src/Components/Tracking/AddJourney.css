@@ -1,0 +1,40 @@
+/* Style the form - display items horizontally */
+.form-inline {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+  }
+
+.form-inline p {
+    margin: 10px 10px 2px 0;
+}
+
+.form-inline input {
+    vertical-align: middle;
+    margin: 0 10px 5px 0;
+    padding: 10px;
+    width: 100px;
+}
+
+.form-inline button {
+    padding: 10px 20px;
+}
+
+
+/* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
+@media (max-width: 800px) {
+    .form-inline input {
+      margin: 10px 0;
+    }
+  
+    .form-inline {
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: stretch;
+    }
+  }
+.distance {
+    width: 100px;
+}

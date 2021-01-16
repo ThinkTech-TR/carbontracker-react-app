@@ -1,0 +1,28 @@
+.container-data {
+    align-items: center;
+    padding: 10px;
+}
+
+.table-track {
+    border: none;
+}
+
+.diet-select {
+    border:0px;
+    outline:0px;
+}
+
+td {
+    white-space:nowrap;
+}
+.cell-co2 {
+    font-weight: bold;
+    text-align: right;
+}
+.cell-distance {
+    text-align: right;
+}
+
+.cell-button {
+    text-align: right;
+}

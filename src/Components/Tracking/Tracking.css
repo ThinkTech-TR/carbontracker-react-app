@@ -22,33 +22,11 @@ h2 {
     padding: 10px;
 }
 
-.container-data {
-    align-items: center;
-    padding: 10px;
-}
-
-.table-track {
-    border: none;
-}
-
-.diet-select {
-    border:0px;
-    outline:0px;
-}
-
-td {
-    white-space:nowrap;
-}
-
-
-.button-day-container {
+.button-day-container {    
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-}
-.tdButtonBack {
-    text-align: left;
-}
-.tdButtonForward{
-    text-align: right;
+    padding: 30px;
 }
 
 @media only screen and (max-width: 576px) {
