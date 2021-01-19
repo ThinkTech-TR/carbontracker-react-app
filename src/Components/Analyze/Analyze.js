@@ -104,7 +104,7 @@ class Analyze extends React.Component {
             </div>
         {/* Graphs */}
             <div className="graphs-container">
-            <h3 className="text-center font-weight-bold"> Analyze</h3>
+            <h3 className="text-center font-weight-bold"> Your Carbon Footprint distribution</h3>
             <div >
             <ReactApexChart options={this.state.options2} series={this.state.series2} type="polarArea" />
         </div>
