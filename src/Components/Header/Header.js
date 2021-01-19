@@ -31,7 +31,6 @@ function Header() {
                                 />{' '}  BeGreen
                         </Navbar.Brand>
                     <Navbar.Collapse id="basic-navbar-nav">
-                        {/* <nav className="green-border navigation"> */}
                         <Nav className="mr-auto navbar-nav">
                             <Navbar.Brand href="index.html" className="d-none d-lg-block navbar-brand green font-lg">
                                 <img
@@ -39,9 +38,7 @@ function Header() {
                                     src="/images/carbon-footprint-logo-mini.jpg"
                                     className="d-inline-block align-center"
                                 />{' '}  BeGreen
-                        </Navbar.Brand>
-
-                            <Nav.Link className="nav-item nav-link active green" href="/">Home</Nav.Link>
+                        </Navbar.Brand>                            
                             {isAuthenticated && <div className="navbar-nav">
                                 <Nav.Link className="nav-item nav-link active green" href="/tracking">Track</Nav.Link>
                                 <Nav.Link className="nav-item nav-link disabled" href="/">Analyze</Nav.Link>

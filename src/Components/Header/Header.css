@@ -19,10 +19,11 @@
   }
 
 .green:hover {
-   color:  #31AA1C;
+    color:  #31AA1C;
+   
 }
 
- .btn {
+.btn {
      margin-right: 15px;
  }
 
