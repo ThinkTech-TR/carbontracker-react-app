@@ -2,15 +2,22 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
-import { useState} from "react";
+import React, { useState} from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import uuid from "react-uuid";
+import { faSave} from "@fortawesome/free-regular-svg-icons";
+import { faWindowClose} from "@fortawesome/free-regular-svg-icons";
+import { faEdit} from "@fortawesome/free-regular-svg-icons";
+
+
 import Total from "./total.png";
-import journeyIco from "./journey-icon.jpg";
 import Image from 'react-bootstrap/Image';
 
 import AddJourney from "./AddJourney";
 
 import './Tracking.css';
+
 
 
 function Tracking () {
@@ -89,7 +96,7 @@ function Tracking () {
         setTrackRecords(updatedRecords);
     }
     
-    
+   
     
     // inEditMode - a state variable to track the edit status
     const [inEditMode, setInEditMode] =useState({
@@ -116,8 +123,19 @@ function Tracking () {
      * @param id - the id of journey (idJourney)
      * @param newDistance
      */
+
+
     const updateJourney =({id, newDistance}) => {
         // update data
+        let updatedRecords = {};
+        trackRecords.forEach(item => {
+            if (item.idTrackRecord === id) {
+                updatedRecords = item;
+            }
+        })
+        updatedRecords.distance = newDistance;
+        updatedRecords.emissionCO2 = 0.3 * newDistance;
+        //updatedRecords.distance = newDistance;
         //inEditMode and distance are reset
         onCancel();
         //fetch updated list of Tracking records
@@ -156,20 +174,63 @@ function Tracking () {
                 <Col xs={12} md={6}>
                     <div className="main-container">
                         <div className="container-data">
+                            <h5>11/01/2021</h5>
                             <Table responsive="sm" size="sm" className="font-sm">
                                 <thead>
                                     <tr>
-                                        <th>11/01/2021</th>
+                                        <th></th>
+                                        <th>kg CO2</th>
+                                        <th>Mileage</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {trackRecords.map((item) => (
                                             <tr key={item.idTrackRecord}>
                                                 <td>{item.trackingItemName}</td>
-                                                <td className="cell-co2">{item.emissionCO2} kg</td>
-                                                <td className="cell-distance">{item.distance} mi</td>
+                                                <td className="cell-co2">{item.emissionCO2}</td>
+                                                <td className="cell-distance">
+                                                    {
+                                                        inEditMode.status && inEditMode.rowKey === item.idTrackRecord ? (
+                                                            <input className="input-distance" value={ distance }
+                                                                    onChange={(event) => setDistance(event.target.value)}
+                                                            />
+                                                        ) : (
+                                                            item.distance
+                                                        )
+                                                    }
+                                                </td>
                                                 <td className="cell-button">
-                                                    {item.changeble === true && <button className="button-green">-</button>}
+                                                    {
+                                                        inEditMode.status && inEditMode.rowKey === item.idTrackRecord ? (
+                                                            <React.Fragment>
+                                                                {item.changeble === true && <button
+                                                                                                className="button-green"
+                                                                                                onClick={() => onSave({id: item.idTrackRecord, newDistance: distance})}
+                                                                                            >
+                                                                                                <FontAwesomeIcon icon={ faSave } />
+                                                                                            </button>
+                                                                }
+                                                                {item.changeble === true && <button
+                                                                                                className="button-green"
+                                                                                                onClick={() => onCancel()}
+                                                                                            >
+                                                                                                <FontAwesomeIcon icon={ faWindowClose } />
+                                                                                            </button>
+                                                                }
+                                                            </React.Fragment>
+                                                        ) :(
+                                                            <React.Fragment>
+                                                                {item.changeble === true && <button
+                                                                                                className="button-green"
+                                                                                                onClick={() => onEdit({id: item.idTrackRecord, currentDistance: item.distance})}
+                                                                                            >
+                                                                                                <FontAwesomeIcon icon={ faEdit } />
+                                                                                            </button>
+                                                                }
+                                                            </React.Fragment>
+                                                        )
+                                                    }
                                                 </td>
                                             </tr>
                                         ))

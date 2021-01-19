@@ -46,7 +46,10 @@ td {
 .cell-distance {
     text-align: right;
 }
-
+.input-distance {
+    text-align: right;
+    width: 80px;
+}
 .cell-button {
     text-align: right;
 }
