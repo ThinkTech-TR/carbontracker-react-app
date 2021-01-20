@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import uuid from "react-uuid";
@@ -23,66 +23,154 @@ import './Tracking.css';
 
 
 function Tracking () {
-    //const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([
-    const [ carbonInfoByDate, setCarbonInfoByDate] =useState([        
-    {userId: "101",
-    userName: "John",
-    trackingItemId: "1",
-    trackingItemName: "Housing",
-    distance: null,
-    emissionCO2: 10,
-    changeble: false,
-    trackingDate: "01.01.2021",
-    idTrackRecord: "001",
-    idJourney: null
-   },
-   {userId: "101",
-    userName: "John",
-    trackingItemId: "2",
-    trackingItemName: "Car",
-    distance: "15",
-    emissionCO2: 8,
-    changeble: true,
-    trackingDate: "01.01.2021",
-    idTrackRecord: "002",
-    idJourney: "012"
-   },
-   {userId: "101",
-    userName: "John",
-    trackingItemId: "3",
-    trackingItemName: "Pescatarian",
-    distance: null,
-    emissionCO2: 0.5,
-    changeble: false,
-    trackingDate: "01.01.2021",
-    idTrackRecord: "003",
-    idJourney: null
-   },
-   {userId: "101",
-    userName: "John",
-    trackingItemId: "4",
-    trackingItemName: "Bus",
-    distance: "15",
-    emissionCO2: 2,
-    changeble: true,
-    trackingDate: "01.01.2021",
-    idTrackRecord: "004",
-    idJourney: "013"
-   },
-   {userId: "101",
-    userName: "John",
-    trackingItemId: "5",
-    trackingItemName: "Train",
-    distance: "15",
-    emissionCO2: 2,
-    changeble: true,
-    trackingDate: "01.01.2021",
-    idTrackRecord: "005",
-    idJourney: "014"
-   }
-])
+    const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([
+        {userId: "101",
+        userName: "John",
+        trackingItemId: "1",
+        trackingItemName: "Housing",
+        distance: null,
+        emissionCO2: 10,
+        changeble: false,
+        trackingDate: "19/01/2021",
+        idTrackRecord: "001",
+        idJourney: null
+       },
+       {userId: "101",
+        userName: "John",
+        trackingItemId: "3",
+        trackingItemName: "Pescatarian",
+        distance: null,
+        emissionCO2: 0.5,
+        changeble: false,
+        trackingDate: "19/01/2021",
+        idTrackRecord: "003",
+        idJourney: null
+       },
 
-    //const [ carbonInfoByDate, setCarbonInfoByDate] =useState([
+       {userId: "101",
+       userName: "John",
+       trackingItemId: "1",
+       trackingItemName: "Housing",
+       distance: null,
+       emissionCO2: 10,
+       changeble: false,
+       trackingDate: "02/01/2021",
+       idTrackRecord: "004",
+       idJourney: null
+      },
+      {userId: "101",
+       userName: "John",
+       trackingItemId: "2",
+       trackingItemName: "Car",
+       distance: "15",
+       emissionCO2: 8,
+       changeble: true,
+       trackingDate: "20/01/2021",
+       idTrackRecord: "005",
+       idJourney: "012"
+      },
+      {userId: "101",
+       userName: "John",
+       trackingItemId: "3",
+       trackingItemName: "Pescatarian",
+       distance: null,
+       emissionCO2: 0.5,
+       changeble: false,
+       trackingDate: "20/01/2021",
+       idTrackRecord: "006",
+       idJourney: null
+      },
+      {userId: "101",
+       userName: "John",
+       trackingItemId: "4",
+       trackingItemName: "Bus",
+       distance: "15",
+       emissionCO2: 2,
+       changeble: true,
+       trackingDate: "20/01/2021",
+       idTrackRecord: "007",
+       idJourney: "013"
+      },
+      {userId: "101",
+       userName: "John",
+       trackingItemId: "5",
+       trackingItemName: "Train",
+       distance: "15",
+       emissionCO2: 2,
+       changeble: true,
+       trackingDate: "20/01/2021",
+       idTrackRecord: "008",
+       idJourney: "014"
+      },
+
+      {userId: "101",
+      userName: "John",
+      trackingItemId: "1",
+      trackingItemName: "Housing",
+      distance: null,
+      emissionCO2: 10,
+      changeble: false,
+      trackingDate: "18/01/2021",
+      idTrackRecord: "009",
+      idJourney: null
+     },
+     {userId: "101",
+      userName: "John",
+      trackingItemId: "2",
+      trackingItemName: "Car",
+      distance: "15",
+      emissionCO2: 8,
+      changeble: true,
+      trackingDate: "18/01/2021",
+      idTrackRecord: "010",
+      idJourney: "012"
+     },
+     {userId: "101",
+      userName: "John",
+      trackingItemId: "3",
+      trackingItemName: "Pescatarian",
+      distance: null,
+      emissionCO2: 0.5,
+      changeble: false,
+      trackingDate: "18/01/2021",
+      idTrackRecord: "011",
+      idJourney: null
+     },
+     {userId: "101",
+      userName: "John",
+      trackingItemId: "4",
+      trackingItemName: "Bus",
+      distance: "15",
+      emissionCO2: 2,
+      changeble: true,
+      trackingDate: "18/01/2021",
+      idTrackRecord: "012",
+      idJourney: "013"
+     },
+     {userId: "101",
+      userName: "John",
+      trackingItemId: "5",
+      trackingItemName: "Train",
+      distance: "15",
+      emissionCO2: 2,
+      changeble: true,
+      trackingDate: "18/01/2021",
+      idTrackRecord: "013",
+      idJourney: "014"
+     }
+   
+    ]);
+    const [forDate, setForDate] = useState (() => {
+        return new Date();
+    });
+
+    const [carbonInfoByDate, setCarbonInfoByDate] = useState(() => {
+        return carbonInfoForMonth.filter (info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate)))
+    });
+
+    function fetchInfoByDate (forDate) {
+        setCarbonInfoByDate(carbonInfoForMonth.filter (info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate))));
+    };
 
     const addJourney = (newTrackingItemId, newTrackingItemName, newDistance) => {
         const newJourney = {
@@ -160,11 +248,24 @@ function Tracking () {
         setDistance(null);
     }
 
+    const onClickForward = () => {
+        //console.log("forDate   " + forDate);
+        setForDate(new Date(forDate.setDate(forDate.getDate() - 1)));
+        fetchInfoByDate(forDate);
+    }
+
+    const onClickBackward = () => {
+        setForDate(new Date(forDate.setDate(forDate.getDate() + 1)));
+        fetchInfoByDate(forDate);
+    }
+
+
     function daylyAmountCO2 (records) {
         let amountCO2 = 0;
         for (let i = 0; i < records.length; i ++){
             amountCO2 += records[i].emissionCO2;
         }
+        
         return amountCO2;
     }
     return (
@@ -179,7 +280,7 @@ function Tracking () {
                 <Col md={12} lg={6}>
                     <div className="main-container">
                         <div className="container-data">
-                            <h5>11/01/2021</h5>
+                            <h5>{new Intl.DateTimeFormat("en-GB").format(new Date(forDate))}</h5>
                             <Table responsive="sm" size="sm" className="font-sm">
                                 <thead>
                                     <tr>
@@ -245,17 +346,25 @@ function Tracking () {
                             </div>
 
                         <AddJourney addJourney={ addJourney }/>
+
                         <div className="button-day-container flex-contianer">
                             <div className="left-btn">
-                                <button 
-                                    className="button-green"
-                                >
-                                    <FontAwesomeIcon icon={ faBackward } />
-                                </button>
-                            </div>
+                                    <React.Fragment>
+                                    {!(new Intl.DateTimeFormat("en-GB").format(new Date(forDate)) === new Intl.DateTimeFormat("en-GB").format(new Date())) &&
+                                        <button 
+                                            className="button-green"
+                                            onClick={() => onClickBackward()}
+                                        >
+                                            <FontAwesomeIcon icon={ faBackward } />
+                                        </button>
+                                    }
+                                    </React.Fragment>
+                            </div>        
+
                             <div className="right-btn">
                                 <button 
                                     className="button-green"
+                                    onClick={() => onClickForward()}
                                 >
                                     <FontAwesomeIcon icon={ faForward } />
                                 </button>
