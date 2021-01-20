@@ -5,23 +5,38 @@
     flex-wrap: nowrap;
     align-items: center;
     width: 100%;
+    margin-top: 30px;
   }
 
 .form-inline p {
     margin: 10px 10px 2px 0;
 }
 
+.form-inline select {
+    border-width: 0.5px;
+    height: 29px;
+}
 .form-inline input {
     vertical-align: middle;
-    margin: 0 10px 5px 0;
+    margin: 0 10px 5px 20px;
     padding: 10px;
-    width: 100px;
+    width: 70px;
+    height: 28px;
+    border-width: 0.5px;
 }
 
 .form-inline button {
     padding: 10px 20px;
 }
 
+.icon-size {
+  font-size: large;
+}
+
+.form-inline img {
+  width: 60px;
+  height: 58px;
+}
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {
@@ -38,3 +53,4 @@
 .distance {
     width: 100px;
 }
+
