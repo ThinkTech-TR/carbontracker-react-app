@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useState } from "react";
+
 import journeyIco from "./journey-icon.jpg";
 import Image from 'react-bootstrap/Image';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -75,8 +76,6 @@ return (
                 value={ distance }>
             </input>
             <button onClick={handleClick} type="submit" className="button-green"><FontAwesomeIcon icon={ faPlusSquare } className="icon-size" /></button>
-        
-        
     </div>
     );
 }

@@ -13,6 +13,7 @@ h2 {
 
 .chart-container {
     align-items: center;
+    width: 100%;
 }
 
 .main-container {
@@ -29,6 +30,11 @@ h2 {
 
 .table-track {
     border: none;
+}
+
+.th-align {
+    text-align: right;
+    font-weight:lighter;
 }
 
 .diet-select {
@@ -61,7 +67,7 @@ td {
     padding: 30px;
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 992px) {    
     .chart-container-sm {
         display: none;
     }

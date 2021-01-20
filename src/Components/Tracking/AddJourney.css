@@ -39,7 +39,7 @@
 }
 
 /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
-@media (max-width: 800px) {
+@media (max-width: 992px) {
     .form-inline input {
       margin: 10px 0;
     }

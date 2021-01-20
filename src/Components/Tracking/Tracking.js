@@ -9,6 +9,8 @@ import uuid from "react-uuid";
 import { faSave} from "@fortawesome/free-regular-svg-icons";
 import { faWindowClose} from "@fortawesome/free-regular-svg-icons";
 import { faEdit} from "@fortawesome/free-regular-svg-icons";
+import { faForward} from "@fortawesome/free-solid-svg-icons";
+import { faBackward} from "@fortawesome/free-solid-svg-icons";
 
 
 import Total from "./total.png";
@@ -21,63 +23,66 @@ import './Tracking.css';
 
 
 function Tracking () {
-    const [ trackRecords, setTrackRecords] =useState([
-        {userId: "101",
-        userName: "John",
-        trackingItemId: "1",
-        trackingItemName: "Housing",
-        distance: null,
-        emissionCO2: 10,
-        changeble: false,
-        trackingDate: "01.01.2021",
-        idTrackRecord: "001",
-        idJourney: null
-       },
-       {userId: "101",
-        userName: "John",
-        trackingItemId: "2",
-        trackingItemName: "Car",
-        distance: "15",
-        emissionCO2: 8,
-        changeble: true,
-        trackingDate: "01.01.2021",
-        idTrackRecord: "002",
-        idJourney: "012"
-       },
-       {userId: "101",
-        userName: "John",
-        trackingItemId: "3",
-        trackingItemName: "Pescatarian",
-        distance: null,
-        emissionCO2: 0.5,
-        changeble: false,
-        trackingDate: "01.01.2021",
-        idTrackRecord: "003",
-        idJourney: null
-       },
-       {userId: "101",
-        userName: "John",
-        trackingItemId: "4",
-        trackingItemName: "Bus",
-        distance: "15",
-        emissionCO2: 2,
-        changeble: true,
-        trackingDate: "01.01.2021",
-        idTrackRecord: "004",
-        idJourney: "013"
-       },
-       {userId: "101",
-        userName: "John",
-        trackingItemId: "5",
-        trackingItemName: "Train",
-        distance: "15",
-        emissionCO2: 2,
-        changeble: true,
-        trackingDate: "01.01.2021",
-        idTrackRecord: "005",
-        idJourney: "014"
-       }
-    ])
+    //const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([
+    const [ carbonInfoByDate, setCarbonInfoByDate] =useState([        
+    {userId: "101",
+    userName: "John",
+    trackingItemId: "1",
+    trackingItemName: "Housing",
+    distance: null,
+    emissionCO2: 10,
+    changeble: false,
+    trackingDate: "01.01.2021",
+    idTrackRecord: "001",
+    idJourney: null
+   },
+   {userId: "101",
+    userName: "John",
+    trackingItemId: "2",
+    trackingItemName: "Car",
+    distance: "15",
+    emissionCO2: 8,
+    changeble: true,
+    trackingDate: "01.01.2021",
+    idTrackRecord: "002",
+    idJourney: "012"
+   },
+   {userId: "101",
+    userName: "John",
+    trackingItemId: "3",
+    trackingItemName: "Pescatarian",
+    distance: null,
+    emissionCO2: 0.5,
+    changeble: false,
+    trackingDate: "01.01.2021",
+    idTrackRecord: "003",
+    idJourney: null
+   },
+   {userId: "101",
+    userName: "John",
+    trackingItemId: "4",
+    trackingItemName: "Bus",
+    distance: "15",
+    emissionCO2: 2,
+    changeble: true,
+    trackingDate: "01.01.2021",
+    idTrackRecord: "004",
+    idJourney: "013"
+   },
+   {userId: "101",
+    userName: "John",
+    trackingItemId: "5",
+    trackingItemName: "Train",
+    distance: "15",
+    emissionCO2: 2,
+    changeble: true,
+    trackingDate: "01.01.2021",
+    idTrackRecord: "005",
+    idJourney: "014"
+   }
+])
+
+    //const [ carbonInfoByDate, setCarbonInfoByDate] =useState([
 
     const addJourney = (newTrackingItemId, newTrackingItemName, newDistance) => {
         const newJourney = {
@@ -92,8 +97,8 @@ function Tracking () {
             idTrackRecord: uuid(),
             idJourney: uuid()
         }
-        const updatedRecords =[...trackRecords, newJourney];
-        setTrackRecords(updatedRecords);
+        const updatedRecords =[...carbonInfoByDate, newJourney];
+        setCarbonInfoByDate(updatedRecords);
     }
     
    
@@ -128,7 +133,7 @@ function Tracking () {
     const updateJourney =({id, newDistance}) => {
         // update data
         let updatedRecords = {};
-        trackRecords.forEach(item => {
+        carbonInfoByDate.forEach(item => {
             if (item.idTrackRecord === id) {
                 updatedRecords = item;
             }
@@ -165,13 +170,13 @@ function Tracking () {
     return (
         <Container className="track-container">
             <Row>
-                <Col xs={12} md={6}>
-                    <h2 className="font-sm">Hi John,  estimated CO2 this month is {daylyAmountCO2(trackRecords) * 30} kg</h2>
+                <Col md={12} lg={6}>
+                    <h2 className="font-sm">Hi John,  estimated CO2 this month is {daylyAmountCO2(carbonInfoByDate) * 30} kg</h2>
                     <div className="chart-container chart-container-sm">
                         <Image src={Total} alt="total" fluid/>
                     </div>
                 </Col>
-                <Col xs={12} md={6}>
+                <Col md={12} lg={6}>
                     <div className="main-container">
                         <div className="container-data">
                             <h5>11/01/2021</h5>
@@ -179,13 +184,13 @@ function Tracking () {
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>kg CO2</th>
-                                        <th>Mileage</th>
+                                        <th className="th-align">kg CO2e</th>
+                                        <th className="th-align">Mileage</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {trackRecords.map((item) => (
+                                    {carbonInfoByDate.map((item) => (
                                             <tr key={item.idTrackRecord}>
                                                 <td>{item.trackingItemName}</td>
                                                 <td className="cell-co2">{item.emissionCO2}</td>
@@ -242,10 +247,18 @@ function Tracking () {
                         <AddJourney addJourney={ addJourney }/>
                         <div className="button-day-container flex-contianer">
                             <div className="left-btn">
-                                <button className="button-green">Back</button>
+                                <button 
+                                    className="button-green"
+                                >
+                                    <FontAwesomeIcon icon={ faBackward } />
+                                </button>
                             </div>
                             <div className="right-btn">
-                                <button type="submit" className="button-green">Forward</button>
+                                <button 
+                                    className="button-green"
+                                >
+                                    <FontAwesomeIcon icon={ faForward } />
+                                </button>
                             </div>
                         </div>
                     </div>
