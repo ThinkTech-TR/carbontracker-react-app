@@ -68,7 +68,9 @@ function App() {
                     <Route path="/login"><Login /></Route>
                     <Route path="/logout"><Logout /></Route>
                     <Route path="/signup"><Signup /></Route>
-                    <Route path="/results"><Results /></Route>
+                    <Route path="/results"><Results 
+                        questionnaire={ questData } />
+                    </Route>
                     <Route path="/tracking"><Tracking /></Route>
                     <Route path="/analyze"><Analyze /></Route>
                     <Route path="/questionaire">< Questionaire
