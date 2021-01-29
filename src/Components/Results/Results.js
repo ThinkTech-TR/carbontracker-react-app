@@ -31,7 +31,7 @@ function Results({ questionnaire }) {
         const updateCarbon = (data) => {
             setInitialCarbon(data);
             const max = getMaxContribution(data);
-            const vals = data.map((c) => ({relativeCarbon: getUserPercent(c.userCarbon, max), carbonType: c.carbonType, carbonValue: c.userCarbon}));
+            const vals = data.filter(d => d.userCarbon !== 0).map(c => ({relativeCarbon: getUserPercent(c.userCarbon, max), carbonType: c.carbonType, carbonValue: c.userCarbon}));
             setMaxContribution(max);
             setMappingValues(vals.sort((a, b)=> a.carbonValue - b.carbonValue));            
          }
