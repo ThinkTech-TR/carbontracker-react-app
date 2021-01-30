@@ -83,7 +83,7 @@ function Questionaire({ currentQuestion,
             questDataItem: "houseType",
             radioButtons: [
                 { option: "Detached house", value: "detached"  },
-                { option: "Semi detached house", value: "semiDetatched"},
+                { option: "Semi detached house", value: "semiDetached"},
                 { option: "End terrace", value: "endTerrace"},
                 { option: "Mid terrace", value: "midTerrace" },
                 { option: "Bungalow", value: "bungalow" },
