@@ -126,12 +126,12 @@ function Results({ questionnaire }) {
             <Row className="row">
                 <Col xs={12} md={6}>
                     <div id="chart">
-                        <ReactApexChart options={options} series={series} type="radialBar" height={350} />
+                        <ReactApexChart options={options} series={series} type="radialBar" height='auto' />
                     </div>
                 </Col>
                 <Col xs={12} md={6}>
                     <div className="font-sm margin-top-xsm"><p>{message()}</p></div>
-                    <table className="table table-hover">
+                    <table className="font-sm table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
