@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import React, { useState, useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import axios from 'axios';
 import uuid from "react-uuid";
 import { faSave} from "@fortawesome/free-regular-svg-icons";
 import { faWindowClose} from "@fortawesome/free-regular-svg-icons";
@@ -23,6 +23,7 @@ import './Tracking.css';
 
 
 function Tracking () {
+{/*    
     const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([
         {userId: "101",
         userName: "John",
@@ -45,154 +46,41 @@ function Tracking () {
         trackingDate: "21/01/2021",
         idTrackRecord: "800",
         idJourney: null
-       },
-
-       {userId: "101",
-        userName: "John",
-        trackingItemId: "1",
-        trackingItemName: "Housing",
-        distance: null,
-        emissionCO2: 10,
-        changeble: false,
-        trackingDate: "19/01/2021",
-        idTrackRecord: "001",
-        idJourney: null
-       },
-       {userId: "101",
-        userName: "John",
-        trackingItemId: "3",
-        trackingItemName: "Pescatarian",
-        distance: null,
-        emissionCO2: 0.5,
-        changeble: false,
-        trackingDate: "19/01/2021",
-        idTrackRecord: "003",
-        idJourney: null
-       },
-
-       {userId: "101",
-       userName: "John",
-       trackingItemId: "1",
-       trackingItemName: "Housing",
-       distance: null,
-       emissionCO2: 10,
-       changeble: false,
-       trackingDate: "02/01/2021",
-       idTrackRecord: "004",
-       idJourney: null
-      },
-      {userId: "101",
-       userName: "John",
-       trackingItemId: "2",
-       trackingItemName: "Car",
-       distance: "15",
-       emissionCO2: 8,
-       changeble: true,
-       trackingDate: "20/01/2021",
-       idTrackRecord: "005",
-       idJourney: "012"
-      },
-      {userId: "101",
-       userName: "John",
-       trackingItemId: "3",
-       trackingItemName: "Pescatarian",
-       distance: null,
-       emissionCO2: 0.5,
-       changeble: false,
-       trackingDate: "20/01/2021",
-       idTrackRecord: "006",
-       idJourney: null
-      },
-      {userId: "101",
-       userName: "John",
-       trackingItemId: "4",
-       trackingItemName: "Bus",
-       distance: "15",
-       emissionCO2: 2,
-       changeble: true,
-       trackingDate: "20/01/2021",
-       idTrackRecord: "007",
-       idJourney: "013"
-      },
-      {userId: "101",
-       userName: "John",
-       trackingItemId: "5",
-       trackingItemName: "Train",
-       distance: "15",
-       emissionCO2: 2,
-       changeble: true,
-       trackingDate: "20/01/2021",
-       idTrackRecord: "008",
-       idJourney: "014"
-      },
-
-      {userId: "101",
-      userName: "John",
-      trackingItemId: "1",
-      trackingItemName: "Housing",
-      distance: null,
-      emissionCO2: 10,
-      changeble: false,
-      trackingDate: "18/01/2021",
-      idTrackRecord: "009",
-      idJourney: null
-     },
-     {userId: "101",
-      userName: "John",
-      trackingItemId: "2",
-      trackingItemName: "Car",
-      distance: "15",
-      emissionCO2: 8,
-      changeble: true,
-      trackingDate: "18/01/2021",
-      idTrackRecord: "010",
-      idJourney: "012"
-     },
-     {userId: "101",
-      userName: "John",
-      trackingItemId: "3",
-      trackingItemName: "Pescatarian",
-      distance: null,
-      emissionCO2: 0.5,
-      changeble: false,
-      trackingDate: "18/01/2021",
-      idTrackRecord: "011",
-      idJourney: null
-     },
-     {userId: "101",
-      userName: "John",
-      trackingItemId: "4",
-      trackingItemName: "Bus",
-      distance: "15",
-      emissionCO2: 2,
-      changeble: true,
-      trackingDate: "18/01/2021",
-      idTrackRecord: "012",
-      idJourney: "013"
-     },
-     {userId: "101",
-      userName: "John",
-      trackingItemId: "5",
-      trackingItemName: "Train",
-      distance: "15",
-      emissionCO2: 2,
-      changeble: true,
-      trackingDate: "18/01/2021",
-      idTrackRecord: "013",
-      idJourney: "014"
-     }
-   
+       }   
     ]);
+*/}
     const [forDate, setForDate] = useState (() => {
         return new Date();
     });
 
-    const [carbonInfoByDate, setCarbonInfoByDate] = useState(() => {
-        return carbonInfoForMonth.filter (info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate)))
-    });
+    const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([]);
+    const [carbonInfoByDate, setCarbonInfoByDate] = useState([]);
 
+    
+    useEffect(() => {
+        const userId = "1";
+        const sDate= forDate.toISOString().slice(0,10);
+        //Initiate a get request to API endpoint
+        axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userId}/forDate/${sDate}/trackingcarbonformonth`)
+        //If successful, update the carbonInfoForMonth state
+        .then(response => {setCarbonInfoForMonth(response.data);
+                           setCarbonInfoByDate(response.data.filter (info => info.trackingDate === forDate.toISOString().slice(0,10)));
+            })
+        //If error, log out the error
+        .catch(error => console.log(error));
+    }, [forDate]);
+
+{/*
+    const [carbonInfoByDate, setCarbonInfoByDate] = useState(() => {
+        /*return carbonInfoForMonth.filter (info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate)))
+        //return carbonInfoForMonth.filter (info => info.trackingDate === forDate.toISOString().slice(0,10));
+        return carbonInfoForMonth;
+});
+*/}
     function fetchInfoByDate (forDate) {
+        
         setCarbonInfoByDate(carbonInfoForMonth.filter (info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate))));
+        
     };
 
     const addJourney = (newTrackingItemId, newTrackingItemName, newDistance) => {
@@ -202,8 +90,8 @@ function Tracking () {
             trackingItemId: newTrackingItemId,
             trackingItemName: newTrackingItemName,
             distance: newDistance,
-            emissionCO2: 6,
-            changeble: true,
+            emission: 6,
+            changeable: true,
             trackingDate: "01.01.2021",
             idTrackRecord: uuid(),
             idJourney: uuid()
@@ -317,7 +205,7 @@ function Tracking () {
                                     {carbonInfoByDate.map((item) => (
                                             <tr key={item.idTrackRecord}>
                                                 <td>{item.trackingItemName}</td>
-                                                <td className="cell-co2">{item.emissionCO2}</td>
+                                                <td className="cell-co2">{item.emission}</td>
                                                 <td className="cell-distance">
                                                     {
                                                         inEditMode.status && inEditMode.rowKey === item.idTrackRecord ? (
@@ -333,14 +221,14 @@ function Tracking () {
                                                     {
                                                         inEditMode.status && inEditMode.rowKey === item.idTrackRecord ? (
                                                             <React.Fragment>
-                                                                {item.changeble === true && <button
+                                                                {item.changeable === true && <button
                                                                                                 className="button-green"
                                                                                                 onClick={() => onSave({id: item.idTrackRecord, newDistance: distance})}
                                                                                             >
                                                                                                 <FontAwesomeIcon icon={ faSave } />
                                                                                             </button>
                                                                 }
-                                                                {item.changeble === true && <button
+                                                                {item.changeable === true && <button
                                                                                                 className="button-green"
                                                                                                 onClick={() => onCancel()}
                                                                                             >
@@ -350,7 +238,7 @@ function Tracking () {
                                                             </React.Fragment>
                                                         ) :(
                                                             <React.Fragment>
-                                                                {item.changeble === true && <button
+                                                                {item.changeable === true && <button
                                                                                                 className="button-green"
                                                                                                 onClick={() => onEdit({id: item.idTrackRecord, currentDistance: item.distance})}
                                                                                             >
