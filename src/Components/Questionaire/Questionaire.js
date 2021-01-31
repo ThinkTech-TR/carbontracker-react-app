@@ -45,8 +45,7 @@ function Questionaire({ currentQuestion,
             radioButtons: [
                 { option: "Only use public transport", value: "noCar" },
                 { option: "Electric car", value: "electric"},
-                { option: "Plug-in Hybrid car", value: "pluginHybrid" },
-                { option: "Hybrid car", value: "hybrid" },
+                { option: "Plug-in Hybrid car", value: "plugInHybrid" },
                 { option: "Small petrol or diesel car", value: "smallPetrolDiesel" },
                 { option: "Medium petrol or diesel car", value: "mediumPetrolDiesel" },
                 { option: "Large petrol or diesel car", value: "largePetrolDiesel" }
