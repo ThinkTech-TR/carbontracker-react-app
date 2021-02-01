@@ -5,7 +5,6 @@ import Table from 'react-bootstrap/Table';
 import React, { useState, useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
-import uuid from "react-uuid";
 import { faSave} from "@fortawesome/free-regular-svg-icons";
 import { faWindowClose} from "@fortawesome/free-regular-svg-icons";
 import { faEdit} from "@fortawesome/free-regular-svg-icons";
@@ -23,81 +22,54 @@ import './Tracking.css';
 
 
 function Tracking () {
-{/*    
-    const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([
-        {userId: "101",
-        userName: "John",
-        trackingItemId: "1",
-        trackingItemName: "Housing",
-        distance: null,
-        emissionCO2: 10,
-        changeble: false,
-        trackingDate: "21/01/2021",
-        idTrackRecord: "801",
-        idJourney: null
-       },
-       {userId: "101",
-        userName: "John",
-        trackingItemId: "3",
-        trackingItemName: "Pescatarian",
-        distance: null,
-        emissionCO2: 0.5,
-        changeble: false,
-        trackingDate: "21/01/2021",
-        idTrackRecord: "800",
-        idJourney: null
-       }   
-    ]);
-*/}
     const [forDate, setForDate] = useState (() => {
         return new Date();
     });
 
     const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([]);
     const [carbonInfoByDate, setCarbonInfoByDate] = useState([]);
+    //const [idJourney, setIdJourney] = useState([]);
 
-    
+    const userId = "1";
     useEffect(() => {
-        const userId = "1";
         const sDate= forDate.toISOString().slice(0,10);
         //Initiate a get request to API endpoint
         axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userId}/forDate/${sDate}/trackingcarbonformonth`)
         //If successful, update the carbonInfoForMonth state
         .then(response => {setCarbonInfoForMonth(response.data);
-                           setCarbonInfoByDate(response.data.filter (info => info.trackingDate === forDate.toISOString().slice(0,10)));
+                            setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
             })
         //If error, log out the error
         .catch(error => console.log(error));
     }, [forDate]);
 
-{/*
-    const [carbonInfoByDate, setCarbonInfoByDate] = useState(() => {
-        /*return carbonInfoForMonth.filter (info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate)))
-        //return carbonInfoForMonth.filter (info => info.trackingDate === forDate.toISOString().slice(0,10));
-        return carbonInfoForMonth;
-});
-*/}
     function fetchInfoByDate (forDate) {
-        
         setCarbonInfoByDate(carbonInfoForMonth.filter (info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate))));
         
     };
 
     const addJourney = (newTrackingItemId, newTrackingItemName, newDistance) => {
+        const sDate = forDate.toISOString().slice(0,10);
+        const idTrackRecord = Math.max(...carbonInfoForMonth.map(info => info.idTrackRecord)) + 1;
+        //const updatedRecords =[];
         const newJourney = {
-            userId: "101",
-            userName: "John",
+            userId: userId,
             trackingItemId: newTrackingItemId,
             trackingItemName: newTrackingItemName,
             distance: newDistance,
-            emission: 6,
+            emission: "",
             changeable: true,
-            trackingDate: "01.01.2021",
-            idTrackRecord: uuid(),
-            idJourney: uuid()
+            trackingDate: sDate,
+            idTrackRecord: idTrackRecord,
+            idJourney: ""
         }
-        const updatedRecords =[...carbonInfoByDate, newJourney];
-        setCarbonInfoByDate(updatedRecords);
+        //Make a post request, pass in the newJourney as the body
+        axios.post(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userId}/forDate/${sDate}/trackingcarbonformonth`, newJourney)
+        //if succesful, update carbonInfoByDate with response
+        .then(() => axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userId}/forDate/${sDate}/trackingcarbonformonth`)) 
+        .then(response => setCarbonInfoByDate(response.data))
+        //If error, log out the error
+        .catch(error => console.log(error));
     }
     
    
@@ -160,7 +132,6 @@ function Tracking () {
     }
 
     const onClickForward = () => {
-        //console.log("forDate   " + forDate);
         setForDate(new Date(forDate.setDate(forDate.getDate() - 1)));
         fetchInfoByDate(forDate);
     }

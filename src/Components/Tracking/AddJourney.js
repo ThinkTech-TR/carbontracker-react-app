@@ -26,7 +26,6 @@ function AddJourneyForm({addJourney}) {
             break;
         default:
             setTrackingItemId(event.target.value);
-            console.log(event.target.value);
             setTrackingItemName(event.target.options[event.target.selectedIndex].text);
         }
     }
@@ -59,10 +58,10 @@ return (
                 className="font-sm"
                 onChange={ handleChange }>
                     <option value="0">Please choose a journey</option>
-                    <option value="2">Car</option>
-                    <option value="4">Bus</option>
-                    <option value="5">Train</option>
-                    <option value="6">Plane</option>
+                    <option value="1">Car</option>
+                    <option value="2">Bus</option>
+                    <option value="3">Train</option>
+                    <option value="4">Plane</option>
             </select>
             {/*<p className="font-sm">distance </p>*/}
             <input 
