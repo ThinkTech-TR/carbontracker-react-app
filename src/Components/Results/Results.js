@@ -1,5 +1,5 @@
-import React, { createRef } from 'react';
-import { useState, useEffect, useRef } from 'react'
+import React from 'react';
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import ReactApexChart from 'react-apexcharts'
 import "bootstrap/dist/css/bootstrap.css";
@@ -21,7 +21,8 @@ function Results({ questionnaire }) {
 
     const [averageTotal, setAverageTotal] = useState(0);
 
-    const ref = useRef;
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         const getMaxContribution = (data) => {
@@ -40,7 +41,7 @@ function Results({ questionnaire }) {
             })
             setUserTotal(Math.round(sum));
         }
-    
+
         const getAverageTotal = (data) => {
             let sum = 0.0;
             data.forEach((c) => {
@@ -56,22 +57,24 @@ function Results({ questionnaire }) {
             const max = getMaxContribution(data);
             const vals = data.filter(d => d.userCarbon !== 0).map(c => ({ relativeCarbon: getUserPercent(c.userCarbon, max), carbonType: c.carbonType, carbonValue: c.userCarbon }));
             setMaxContribution(max);
-            setMappingValues(vals.sort((a, b) => a.carbonValue - b.carbonValue));            
+            setMappingValues(vals.sort((a, b) => a.carbonValue - b.carbonValue));
         }
 
+        setLoading(true)
         axios
             .post(` https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/initialcarbon`, questionnaire)
             .then(response => {
                 updateCarbon(response.data);
             })
             .catch(error => console.log(error))
+            .finally(setLoading(false))
 
     }, [questionnaire])
 
 
     const getUserValue = (val) => {
         return Math.round(val * maxContribution / 100);
-    };   
+    };
 
     const message = () => {
 
@@ -93,7 +96,7 @@ function Results({ questionnaire }) {
     const options = {
         labels: mappingValues.map((c) => { return c.carbonType; }),
         chart: {
-            height: 350,
+            height: "400",
             type: 'radialBar',
         },
         plotOptions: {
@@ -120,50 +123,62 @@ function Results({ questionnaire }) {
         }
     };
 
-    return (
-        <Container className="loginContainer">
+    if (loading) {
+        return (
+            <Container className="loginContainer">
+                <Row className="row">
+                    <p>Loading Carbon</p>
+                </Row>
+            </Container>
+        );
+    }
+    else {
+        return (
+            <Container className="loginContainer">
 
-            <Row className="row">
-                <Col xs={12} md={6}>
-                    <div id="chart">
-                        <ReactApexChart options={options} series={series} type="radialBar" height='auto' />
-                    </div>
-                </Col>
-                <Col xs={12} md={6}>
-                    <div className="font-sm margin-top-xsm"><p>{message()}</p></div>
-                    <table className="font-sm table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Carbon Footprint in Kg</th>
-                                <th scope="col">Average in Kg</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {initialCarbon.map((c, ind) => {
-                                return <ResultRow key={c.carbonType} carbonItem={c} ind={ind + 1} />
-                            })}
-                        </tbody>
-                    </table>
-                </Col>
-            </Row>
-            <Row className="row">
-                <div className="font-sm margin-left-15px">
-                    <strong>Sign up </strong>today to save your results.<br />
-                    <ul>
-                        <li><strong>Track</strong> Your ongoing carbon usage.</li>
-                        <li><strong>Compete</strong> with Your organisation colleagues or friends.</li>
-                        <li><strong>Reduce</strong> Your impact on the planet Today.</li>
-                    </ul>
-                    <div className="margin-top-xsm margin-btm-sm">
-                        <Link to="/login"><button type="button" className="btn btn-success d-md-block">Sign up now!</button></Link>
-                    </div>
-                </div>
-            </Row>
 
-        </Container>
-    );
+                <Row className="row">
+                    <Col xs={12} md={6}>
+                        <div id="chart">
+                            <ReactApexChart options={options} series={series} type="radialBar" height="400" />
+                        </div>
+                    </Col>
+                    <Col xs={12} md={6}>
+                        <div className="font-sm margin-top-xsm"><p>{message()}</p></div>
+                        <table className="font-sm table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Carbon Footprint in Kg</th>
+                                    <th scope="col">Average in Kg</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {initialCarbon.map((c, ind) => {
+                                    return <ResultRow key={c.carbonType} carbonItem={c} ind={ind + 1} />
+                                })}
+                            </tbody>
+                        </table>
+                    </Col>
+                </Row>
+                <Row className="row">
+                    <div className="font-sm margin-left-15px">
+                        <strong>Sign up </strong>today to save your results.<br />
+                        <ul>
+                            <li><strong>Track</strong> Your ongoing carbon usage.</li>
+                            <li><strong>Compete</strong> with Your organisation colleagues or friends.</li>
+                            <li><strong>Reduce</strong> Your impact on the planet Today.</li>
+                        </ul>
+                        <div className="margin-top-xsm margin-btm-sm">
+                            <Link to="/login"><button type="button" className="btn btn-success d-md-block">Sign up now!</button></Link>
+                        </div>
+                    </div>
+                </Row>
+
+            </Container>
+        );
+    }
 }
 
 export default Results;

@@ -1,10 +1,12 @@
 import './Landing.css';
+import React from "react";
 import 'animate.css';
 import {
     Link
 } from "react-router-dom";
 
 function Landing() {
+
     return (
         <div className="landing-container">
             <div>

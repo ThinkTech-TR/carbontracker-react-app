@@ -27,7 +27,7 @@ ReactDOM.render(
   <Auth0Provider
     domain ='dev-3pypm-6h.eu.auth0.com'
     clientId='rS0dsu533kPe14Df9v0SVx1RnlfBDKeK'
-    redirectUri={window.location.origin}
+    redirectUri={window.location.origin + "/tracking"}    
   >
     <React.StrictMode>
      <App />
