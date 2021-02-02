@@ -106,7 +106,7 @@ function App() {
                     <Route path="/logout"><Logout /></Route>
                     <Route path="/analyze"><Analyze /></Route>
                     <Route path="/tracking"><Tracking
-                        isUserSaved={isUserSaved}
+                        isUserSaved={isUserSaved}                        
                     /></Route>
                     <Route path="/results"><Results
                         questionnaire={questData} />
