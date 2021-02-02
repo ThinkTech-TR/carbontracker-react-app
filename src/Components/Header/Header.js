@@ -18,12 +18,19 @@ function Header() {
         display: 'block'
       };
 
+    const getHomePage = () => {
+        if ( isAuthenticated ){
+            return "/tracking";
+        }
+        return "/";
+    }
+
     return (
         <header className="header">
             <div className="header-container">
                 <Navbar bg="green" expand="lg">
                     <Navbar.Toggle aria-controls="basic-navbar-nav" className="green-border" />
-                    <Navbar.Brand href="index.html" style={navBrandMobile} className="d-md-block d-lg-none d-md-none d-xl-none font-lg green" >
+                    <Navbar.Brand href={getHomePage()} style={navBrandMobile} className="d-md-block d-lg-none d-md-none d-xl-none font-lg green" >
                                 <img
                                     alt="BeGreen logo"
                                     src="/images/carbon-footprint-logo-mini.jpg"
@@ -32,7 +39,7 @@ function Header() {
                         </Navbar.Brand>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto navbar-nav">
-                            <Navbar.Brand href="index.html" className="d-none d-lg-block navbar-brand green font-lg">
+                            <Navbar.Brand href={getHomePage()} className="d-none d-lg-block navbar-brand green font-lg">
                                 <img
                                     alt="BeGreen logo"
                                     src="/images/carbon-footprint-logo-mini.jpg"

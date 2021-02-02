@@ -12,9 +12,7 @@ import { useState } from "react";
 function Questionaire({ currentQuestion,
     setCurrentQuestion,
     questData,
-    updateQuestData,
-    setQuestionaireComplete
-}) {
+    updateQuestData}) {
 
     const [nextButtonLabel, setNextButtonLabel] = useState("Next");
 
@@ -119,13 +117,12 @@ function Questionaire({ currentQuestion,
             setCurrentQuestion(currentQuestion + 1);          
         } else {
             console.log(questData);
-            setQuestionaireComplete(true);
             history.push("/results");
         }
         if (currentQuestion === questions.length - 2){
            setNextButtonLabel("Finish");
         }
-    }, [setCurrentQuestion, currentQuestion, questions.length, history, questData, setQuestionaireComplete]);
+    }, [setCurrentQuestion, currentQuestion, questions.length, history, questData]);
 
     useEffect(() => {
 

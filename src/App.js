@@ -11,8 +11,8 @@ import Header from './Components/Header/Header'
 import Login from './Components/Login/Login'
 import Logout from './Components/Logout/Logout'
 import Results from './Components/Results/Results'
-import Tracking from "./Components/Tracking/Tracking";
 import Landing from './Components/Landing/Landing'
+import Tracking from "./Components/Tracking/Tracking";
 import Questionaire from './Components/Questionaire/Questionaire'
 import Footer from './Components/Footer/Footer'
 import Analyze from "./Components/Analyze/Analyze";
@@ -25,20 +25,6 @@ function App() {
     const { user, isAuthenticated } = useAuth0();
 
     const [isUserSaved, setIsUserSaved] = useState(false);
-
-    const getQuestComplete = () => {
-        const data = sessionStorage.getItem("questComplete");
-        console.log("getQuestComplete: " + data);
-        if (data) {
-            return data;
-        };
-        return false;
-    }
-
-    const [questComplete, setQuestComplete] = useState(() => {
-        const initialQuestComplete = getQuestComplete();
-        return initialQuestComplete;
-    });
 
     const getQuestData = () => {
         const data = sessionStorage.getItem("questData");
@@ -70,39 +56,46 @@ function App() {
     };
 
     useEffect(() => {
-        console.log(user === undefined ? "unknown" : user.sub);
+        
+        // Save questionnarie data to session storage
         const questDataAsString = JSON.stringify(questData)
         sessionStorage.setItem("questData", questDataAsString);
         console.log("saveSessionState: " + questDataAsString);
 
-        sessionStorage.setItem("questComplete", questComplete);
-        
-
-        // Handle save of user and questionnaire
+        // Handle save of authenticated user and questionnaire to database
         if (isAuthenticated && !isUserSaved) {
             const userId = user.sub.slice(6);
             console.log("userId: " + userId);
-            console.log("questComplete " + questComplete);
-            if (questComplete) {
-                axios
+
+            axios
+            .get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/users/${userId}/checkuser`)
+            .then((response) => {
+                console.log("response.data: " + response.data);
+                if (response.data === false)
+                {
+                    console.log("Calling addupdateuser")
+                    axios
                     .post(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/users/${userId}/addupdateuser`, questData)
                     .then(() => {
                         setIsUserSaved(true);
                     })
                     .catch(error => console.log(error))
-            }
-            else {
-                axios
-                    .get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/users/${userId}/checkuser`)
-                    .then((response) => {
-                        setIsUserSaved(response.data);
-                        console.log("checkUser: " + response.data);
-                    })
-                    .catch(error => console.log(error))
-            }
+                }
+                setIsUserSaved(true);
+            })
+            .catch(error => console.log(error))
         }
 
-    }, [user, questData, isAuthenticated, questComplete, isUserSaved]);
+    }, [user, questData, isAuthenticated, isUserSaved]);
+
+    const getInitalPage = () => {
+      if (isAuthenticated){
+          return <Route exact path="/"><Tracking /></Route>
+      } else
+      {
+        return <Route exact path="/"><Landing /></Route>
+      }
+    }
 
     return (
         <div className="App">
@@ -122,16 +115,14 @@ function App() {
                         currentQuestion={currentQuestion}
                         setCurrentQuestion={setCurrentQuestion}
                         questData={questData}
-                        updateQuestData={updateQuestData}
-                        setQuestionaireComplete={setQuestComplete} />
+                        updateQuestData={updateQuestData} />
                     </Route>
-                    <Route exact path="/"><Landing /></Route>
+                    {getInitalPage()}
                 </Switch>
                 <Footer></Footer>
             </Router>
         </div>
     );
-
 }
 
 export default App;
