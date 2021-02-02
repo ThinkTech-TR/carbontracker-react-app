@@ -99,7 +99,7 @@ function Questionaire({ currentQuestion,
                 { option: "Pre 1919", value: "pre1919" },
                 { option: "1919-44", value: "1919-44" },
                 { option: "1945-64", value: "1945-64" },
-                { option: "1965-83", value: "1965-83" },
+                { option: "1965-82", value: "1965-82" },
                 { option: "1983-92", value: "1983-92" },
                 { option: "1993-99", value: "1993-99" },
                 { option: "Post 1999", value: "post1999" }
