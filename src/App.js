@@ -22,8 +22,8 @@ function App() {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
 
-    const { user, isAuthenticated } = useAuth0();
-
+    const { user, isAuthenticated} = useAuth0();
+    const [userIdAuth0, setUserIdAuth0] = useState();
     const [isUserSaved, setIsUserSaved] = useState(false);
 
     const getQuestData = () => {
@@ -56,6 +56,9 @@ function App() {
     };
 
     useEffect(() => {
+        if (user) {
+            setUserIdAuth0(user.sub.slice(6));
+        }
         
         // Save questionnarie data to session storage
         const questDataAsString = JSON.stringify(questData)
@@ -64,6 +67,7 @@ function App() {
 
         // Handle save of authenticated user and questionnaire to database
         if (isAuthenticated && !isUserSaved) {
+            
             const userId = user.sub.slice(6);
             console.log("userId: " + userId);
 
@@ -90,7 +94,10 @@ function App() {
 
     const getInitalPage = () => {
       if (isAuthenticated){
-          return <Route exact path="/"><Tracking /></Route>
+          return <Route exact path="/"><Tracking
+                        isUserSaved={isUserSaved}
+                        userIdAuth0={userIdAuth0} />
+                </Route>
       } else
       {
         return <Route exact path="/"><Landing /></Route>
@@ -106,7 +113,8 @@ function App() {
                     <Route path="/logout"><Logout /></Route>
                     <Route path="/analyze"><Analyze /></Route>
                     <Route path="/tracking"><Tracking
-                        isUserSaved={isUserSaved}                        
+                        isUserSaved={isUserSaved}
+                        userIdAuth0={userIdAuth0}
                     /></Route>
                     <Route path="/results"><Results
                         questionnaire={questData} />

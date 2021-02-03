@@ -22,29 +22,28 @@ import './Tracking.css';
 
 
 
-function Tracking ({isUserSaved}) {
-    const {user} = useAuth0();
+function Tracking ({isUserSaved, userIdAuth0}) {
+    
     const [forDate, setForDate] = useState (() => {
         return new Date();
         });
 
     const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([]);
     const [carbonInfoByDate, setCarbonInfoByDate] = useState([]);
-    //const [idJourney, setIdJourney] = useState([]);
-
-    const [userIdAuth0, setUserIdAuth0] = useState(user.sub.slice(6));
 
     useEffect(() => {
-        const sDate= forDate.toISOString().slice(0,10);
-        //console.log(user)
-        //Initiate a get request to API endpoint
-        axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
-        //If successful, update the carbonInfoForMonth state
-        .then(response => {setCarbonInfoForMonth(response.data);
-                            setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
-            })
-        //If error, log out the error
-        .catch(error => console.log(error));
+        if(userIdAuth0) {
+            const sDate= forDate.toISOString().slice(0,10);
+            console.log("userIdAuth0 " + userIdAuth0);
+            //Initiate a get request to API endpoint
+            axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
+            //If successful, update the carbonInfoForMonth state
+            .then(response => {setCarbonInfoForMonth(response.data);
+                                setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
+                })
+            //If error, log out the error
+            .catch(error => console.log(error));
+        }
     }, [userIdAuth0, forDate]);
 
     function fetchInfoByDate (forDate) {
@@ -55,7 +54,6 @@ function Tracking ({isUserSaved}) {
     const addJourney = (newTrackingItemId, newTrackingItemName, newDistance) => {
         const sDate = forDate.toISOString().slice(0,10);
         const idTrackRecord = Math.max(...carbonInfoForMonth.map(info => info.idTrackRecord)) + 1;
-        //const updatedRecords =[];
         const newJourney = {
             trackingItemId: newTrackingItemId,
             trackingItemName: newTrackingItemName,
