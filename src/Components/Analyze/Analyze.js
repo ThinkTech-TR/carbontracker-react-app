@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect} from "react";
 import ReactApexChart from 'react-apexcharts'
 import './Analyze.css';
 
+import axios from 'axios';
 
 
-class Analyze extends React.Component {
-    constructor(props) {
-        super(props);
+function Analyze({userIdAuth0}) {
 
-        this.state = {
-            series: [{
+
+      const series =
+            [{
                 name: 'Diet',
                 data: [44, 55, 41, 37, 22, 43, 21]
               }, {
@@ -24,8 +24,8 @@ class Analyze extends React.Component {
               }, {
                 name: 'Housing',
                 data: [25, 12, 19, 32, 25, 24, 10]
-              }],
-              options: {
+              }];
+      const options = {
                 chart: {
                   type: 'bar',
                   height: 350,
@@ -58,9 +58,10 @@ class Analyze extends React.Component {
                   opacity: 1
                 
                 }
-              },
-              series2: [14, 23, 21, 17, 15, 10, 12, 17, 21],
-              options2: {
+              };
+
+      const series2 = [14, 23, 21, 17, 15, 10, 12, 17, 21];
+      const options2 = {
                   chart: {
                       type: 'polarArea',
                       width: 40,
@@ -72,14 +73,9 @@ class Analyze extends React.Component {
                       opacity: 0.8
                   },
                   
-              },
+              };
 
-        };
-    }
-
- render() {
-
-// function Analyze() {
+   
     return (
         <div className="analyze-container d-flex flex-row">
         {/* Profile */}
@@ -106,14 +102,14 @@ class Analyze extends React.Component {
             <div className="graphs-container">
             <h3 className="text-center font-weight-bold"> Your Carbon Footprint distribution</h3>
             <div >
-            <ReactApexChart options={this.state.options2} series={this.state.series2} type="polarArea" />
+            <ReactApexChart options={options2} series={series2} type="polarArea" />
         </div>
             </div>
         {/* Leaderboards */}   
             <div className="leaders-container d-none d-lg-block font-lg text-center">
                 <h3 className="text-center font-weight-bold"> Top 5 reducers</h3>
                <div id="chart">
-                    <ReactApexChart options={this.state.options} series={this.state.series} type="bar" height={350} />
+                    <ReactApexChart options={options} series={series} type="bar" height={350} />
                 </div>
                
                 
@@ -124,7 +120,6 @@ class Analyze extends React.Component {
             </div>
         </div>
     );
-}
 }
 
 export default Analyze;
