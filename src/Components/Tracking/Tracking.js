@@ -57,7 +57,6 @@ function Tracking ({isUserSaved}) {
         const idTrackRecord = Math.max(...carbonInfoForMonth.map(info => info.idTrackRecord)) + 1;
         //const updatedRecords =[];
         const newJourney = {
-            userId: userIdAuth0,
             trackingItemId: newTrackingItemId,
             trackingItemName: newTrackingItemName,
             distance: newDistance,
@@ -65,13 +64,16 @@ function Tracking ({isUserSaved}) {
             changeable: true,
             trackingDate: sDate,
             idTrackRecord: idTrackRecord,
-            idJourney: ""
+            idJourney: "0",
+            authUserId: userIdAuth0,
         }
         //Make a post request, pass in the newJourney as the body
         axios.post(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`, newJourney)
         //if succesful, update carbonInfoByDate with response
         .then(() => axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)) 
-        .then(response => setCarbonInfoByDate(response.data))
+        .then(response => {setCarbonInfoForMonth(response.data);
+                           setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
+            })
         //If error, log out the error
         .catch(error => console.log(error));
     }
