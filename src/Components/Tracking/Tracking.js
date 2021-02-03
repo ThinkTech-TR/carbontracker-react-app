@@ -3,7 +3,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import React, { useState, useEffect} from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
 import { faSave} from "@fortawesome/free-regular-svg-icons";
@@ -31,10 +30,9 @@ function Tracking ({isUserSaved, userIdAuth0}) {
     const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([]);
     const [carbonInfoByDate, setCarbonInfoByDate] = useState([]);
 
+    const sDate = forDate.toISOString().slice(0,10);
     useEffect(() => {
         if(userIdAuth0) {
-            const sDate= forDate.toISOString().slice(0,10);
-            console.log("userIdAuth0 " + userIdAuth0);
             //Initiate a get request to API endpoint
             axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
             //If successful, update the carbonInfoForMonth state
@@ -44,7 +42,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
             //If error, log out the error
             .catch(error => console.log(error));
         }
-    }, [userIdAuth0, forDate]);
+    }, [userIdAuth0, sDate]);
 
     function fetchInfoByDate (forDate) {
         setCarbonInfoByDate(carbonInfoForMonth.filter (info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate))));
@@ -52,7 +50,6 @@ function Tracking ({isUserSaved, userIdAuth0}) {
     };
 
     const addJourney = (newTrackingItemId, newTrackingItemName, newDistance) => {
-        const sDate = forDate.toISOString().slice(0,10);
         const idTrackRecord = Math.max(...carbonInfoForMonth.map(info => info.idTrackRecord)) + 1;
         const newJourney = {
             trackingItemId: newTrackingItemId,
@@ -75,8 +72,6 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         //If error, log out the error
         .catch(error => console.log(error));
     }
-    
-   
     
     // inEditMode - a state variable to track the edit status
     const [inEditMode, setInEditMode] =useState({
@@ -107,15 +102,19 @@ function Tracking ({isUserSaved, userIdAuth0}) {
 
     const updateJourney =({id, newDistance}) => {
         // update data
-        let updatedRecords = {};
-        carbonInfoByDate.forEach(item => {
-            if (item.idTrackRecord === id) {
-                updatedRecords = item;
-            }
-        })
-        updatedRecords.distance = newDistance;
-        updatedRecords.emissionCO2 = 0.3 * newDistance;
-        //updatedRecords.distance = newDistance;
+        const updatedJourney = carbonInfoByDate.find(item =>  item.idTrackRecord === id);
+        updatedJourney.distance = newDistance;
+
+        //Make a post request, pass in the updatedRecords as the body
+        axios.put(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/updatejourney`, updatedJourney)
+        //if succesful, update carbonInfoByDate with response
+        .then(() => axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)) 
+        .then(response => {setCarbonInfoForMonth(response.data);
+                           setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
+            })
+        //If error, log out the error
+        .catch(error => console.log(error));
+
         //inEditMode and distance are reset
         onCancel();
         //fetch updated list of Tracking records
@@ -158,7 +157,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         <Container className="track-container">
             <Row>
                 <Col md={12} lg={6}>
-                    <h2 className="font-sm">Hi John,  estimated CO2 this month is {daylyAmountCO2(carbonInfoByDate) * 30} kg</h2>
+                    <h2 className="font-sm">Estimated CO2 this month is {daylyAmountCO2(carbonInfoByDate) * 30} kg</h2>
                     <div className="chart-container chart-container-sm">
                         <Image src={Total} alt="total" fluid/>
                     </div>
