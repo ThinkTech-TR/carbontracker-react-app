@@ -76,18 +76,18 @@ function App() {
             axios
             .get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/users/${userId}/checkuser`)
             .then((response) => {
-                console.log("response.data: " + response.data);
-                if (response.data === false)
-                {
+                console.log("checkuser response.data: " + response.data);
+                setIsUserSaved(response.data);
+                if (response.data === false)                {
                     console.log("Calling addupdateuser")
                     axios
                     .post(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/users/${userId}/addupdateuser`, questData)
-                    .then(() => {
-                        setIsUserSaved(true);
+                    .then((response) => {
+                        console.log("addupdateuser response.data: " + response.data);
+                        setIsUserSaved(response.data);
                     })
                     .catch(error => console.log(error))
                 }
-                setIsUserSaved(true);
             })
             .catch(error => console.log(error))
         }

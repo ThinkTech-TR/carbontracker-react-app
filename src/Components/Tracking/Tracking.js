@@ -20,7 +20,6 @@ import AddJourney from "./AddJourney";
 import './Tracking.css';
 
 
-
 function Tracking ({isUserSaved, userIdAuth0}) {
     
     const [forDate, setForDate] = useState (() => {
@@ -31,18 +30,25 @@ function Tracking ({isUserSaved, userIdAuth0}) {
     const [carbonInfoByDate, setCarbonInfoByDate] = useState([]);
 
     const sDate = forDate.toISOString().slice(0,10);
+
     useEffect(() => {
-        if(userIdAuth0) {
+        console.log("userIdAuth0 " + userIdAuth0);
+        console.log("isUserSaved  " + isUserSaved)
+        if(userIdAuth0 && isUserSaved === true) {
             //Initiate a get request to API endpoint
+            console.log("get trackingcarbonformonth called")
             axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
             //If successful, update the carbonInfoForMonth state
-            .then(response => {setCarbonInfoForMonth(response.data);
-                                setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
+            .then(                
+                response => {
+                    console.log("trackingcarbonformonth response.data: ", JSON.stringify(response.data));
+                    setCarbonInfoForMonth(response.data);
+                    setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
                 })
             //If error, log out the error
             .catch(error => console.log(error));
         }
-    }, [userIdAuth0, sDate]);
+    }, [userIdAuth0, isUserSaved, sDate]);
 
     function fetchInfoByDate (forDate) {
         setCarbonInfoByDate(carbonInfoForMonth.filter (info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate))));
