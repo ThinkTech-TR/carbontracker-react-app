@@ -24,6 +24,7 @@ function App() {
 
     const { user, isAuthenticated} = useAuth0();
     const [userIdAuth0, setUserIdAuth0] = useState();
+    const [ userData, setUser] = useState();
     const [isUserSaved, setIsUserSaved] = useState(false);
 
     const getQuestData = () => {
@@ -58,6 +59,7 @@ function App() {
     useEffect(() => {
         if (user) {
             setUserIdAuth0(user.sub.slice(6));
+            setUser(user);
         }
         
         // Save questionnarie data to session storage
@@ -111,7 +113,9 @@ function App() {
                 <Switch>
                     <Route path="/login"><Login /></Route>
                     <Route path="/logout"><Logout /></Route>
-                    <Route path="/analyze"><Analyze /></Route>
+                    <Route path="/analyze"><Analyze 
+                        userData={userData}
+                    /></Route>
                     <Route path="/tracking"><Tracking
                         isUserSaved={isUserSaved}
                         userIdAuth0={userIdAuth0}
