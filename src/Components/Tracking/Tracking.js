@@ -104,9 +104,9 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         // update data
         const updatedJourney = carbonInfoByDate.find(item =>  item.idTrackRecord === id);
         updatedJourney.distance = newDistance;
-
+        console.log(updatedJourney);
         //Make a post request, pass in the updatedRecords as the body
-        axios.put(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/updatejourney`, updatedJourney)
+        axios.put(` https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/updatejourney`, updatedJourney)
         //if succesful, update carbonInfoByDate with response
         .then(() => axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)) 
         .then(response => {setCarbonInfoForMonth(response.data);
