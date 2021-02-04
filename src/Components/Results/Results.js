@@ -10,7 +10,7 @@ import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ResultRow from './ResultRow';
 
-function Results({ questionnaire }) {
+function Results({ questionnaire, userIdAuth0 }) {
     const [initialCarbon, setInitialCarbon] = useState([])
 
     const [mappingValues, setMappingValues] = useState([]);
@@ -140,18 +140,18 @@ function Results({ questionnaire }) {
                 <Row className="row">
                     <Col xs={12} md={6}>
                         <div id="chart">
-                            <ReactApexChart options={options} series={series} type="radialBar" height="400" />
+                            <ReactApexChart options={options} series={series} type="radialBar" height="500" />
                         </div>
                     </Col>
                     <Col xs={12} md={6}>
                         <div className="font-sm margin-top-xsm"><p>{message()}</p></div>
-                        <table className="font-sm table table-hover">
-                            <thead>
+                        <table className="font-xs table table-hover">
+                            <thead className="font-xs">
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Type</th>
-                                    <th scope="col">Carbon Footprint in Kg</th>
-                                    <th scope="col">Average in Kg</th>
+                                    <th scope="col">CO2 in Kg</th>
+                                    <th scope="col">Avg in Kg</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -162,6 +162,7 @@ function Results({ questionnaire }) {
                         </table>
                     </Col>
                 </Row>
+                {!userIdAuth0 &&
                 <Row className="row">
                     <div className="font-sm margin-left-15px">
                         <strong>Sign up </strong>today to save your results.<br />
@@ -175,7 +176,7 @@ function Results({ questionnaire }) {
                         </div>
                     </div>
                 </Row>
-
+                }
             </Container>
         );
     }

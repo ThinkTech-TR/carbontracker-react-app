@@ -73,6 +73,9 @@ p {
 .font-sm {
   font-size: calc(0.6em + 0.5vw);
 }
+.font-xs {
+  font-size: calc(0.6em + 0.1vw);
+}
 
 /* Widths, margins and padding */
 .min-width-110 {

@@ -9,10 +9,10 @@ function ResultRow({ carbonItem, ind }) {
         const threshold = 50;
         if (diff > threshold)
         {
-            return "table-danger";            
+            return "table-warning";            
         }
         if (diff < threshold && diff > -1*threshold){
-            return "table-warning";   
+            return "table-info";   
         }
         return "table-success";
     }

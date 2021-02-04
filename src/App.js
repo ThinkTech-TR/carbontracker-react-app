@@ -121,7 +121,8 @@ function App() {
                         userIdAuth0={userIdAuth0}
                     /></Route>
                     <Route path="/results"><Results
-                        questionnaire={questData} />
+                        questionnaire={questData}
+                        userIdAuth0={userIdAuth0} />
                     </Route>
                     <Route path="/questionaire">< Questionaire
                         currentQuestion={currentQuestion}
