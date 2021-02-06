@@ -23,18 +23,21 @@ import './Tracking.css';
 function Tracking ({isUserSaved, userIdAuth0}) {
     
     const [forDate, setForDate] = useState (() => {
-        return new Date();
+        return new Date().toISOString().slice(0,10);
         });
 
     const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([]);
     const [carbonInfoByDate, setCarbonInfoByDate] = useState([]);
     const [uptodateCarbon, setUptodateCarbon] = useState([]);
     const [total, setTotal] = useState(0);
+    const [callUseEffect, setCallUseEffect] = useState(false);
     
     
     
     
-    const sDate = forDate.toISOString().slice(0,10);
+    //const sDate = forDate.toISOString().slice(0,10);
+    const sDate = new Date().toISOString().slice(0,10);
+    const carbonValues = {};
     
     useEffect(() => {
         console.log("userIdAuth0 " + userIdAuth0);
@@ -59,12 +62,12 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                 console.log(data);
                 
                 getTotal(data);
-                const carbonValues = {};
+                //const carbonValues = {};
                 data.forEach (e => {
                     const itemCarbon = e.trackingItemName;
                     carbonValues[itemCarbon] += e.emission;
                 });
-                setUptodateCarbon(carbonValues);
+                //setUptodateCarbon(carbonValues);
                 console.log("carbonValues");
                 console.log(carbonValues);
             }
@@ -79,16 +82,16 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                 response => {
                     console.log("trackingcarbonformonth response.data: ", JSON.stringify(response.data));
                     setCarbonInfoForMonth(response.data);
-                    setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
+                    setCarbonInfoByDate(response.data.filter (info => info.trackingDate === forDate));
                     graphInfoUpdate(response.data);
-                    
+                    setCallUseEffect(false);
                     //console.log(carbonhUptodate);
                 })
             //If error, log out the error
             .catch(error => console.log(error));
             
         }
-    }, [userIdAuth0, isUserSaved, sDate]);
+    }, [userIdAuth0, isUserSaved, forDate, callUseEffect]);
 
     function fetchInfoByDate (forDate) {
         setCarbonInfoByDate(carbonInfoForMonth.filter (info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate))));
@@ -103,17 +106,18 @@ function Tracking ({isUserSaved, userIdAuth0}) {
             distance: newDistance,
             emission: "",
             changeable: true,
-            trackingDate: sDate,
+            trackingDate: forDate,
             idTrackRecord: idTrackRecord,
             idJourney: "0",
             authUserId: userIdAuth0,
         }
         //Make a post request, pass in the newJourney as the body
-        axios.post(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`, newJourney)
+        axios.post(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${forDate}/trackingcarbonformonth`, newJourney)
         //if succesful, update carbonInfoByDate with response
         .then(() => axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)) 
         .then(response => {setCarbonInfoForMonth(response.data);
-                           setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
+                           setCarbonInfoByDate(response.data.filter (info => info.trackingDate === forDate));
+                           setCallUseEffect(true);
             })
         //If error, log out the error
         .catch(error => console.log(error));
@@ -156,14 +160,14 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         //if succesful, update carbonInfoByDate with response
         .then(() => axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)) 
         .then(response => {setCarbonInfoForMonth(response.data);
-                           setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
+                           setCarbonInfoByDate(response.data.filter (info => info.trackingDate === forDate));
+                           setCallUseEffect(true);
             })
         //If error, log out the error
         .catch(error => console.log(error));
 
         //inEditMode and distance are reset
         onCancel();
-        //fetch updated list of Tracking records
     }
     const onSave = ({id, newDistance}) => {
         //calls updateJourney 
@@ -181,12 +185,12 @@ function Tracking ({isUserSaved, userIdAuth0}) {
     }
 
     const onClickForward = () => {
-        setForDate(new Date(forDate.setDate(forDate.getDate() - 1)));
+        setForDate(new Date(new Date(forDate).setDate(new Date(forDate).getDate() - 1)).toISOString().slice(0,10));
         fetchInfoByDate(forDate);
     }
 
     const onClickBackward = () => {
-        setForDate(new Date(forDate.setDate(forDate.getDate() + 1)));
+        setForDate(new Date(new Date(forDate).setDate(new Date(forDate).getDate() + 1)).toISOString().slice(0,10));
         fetchInfoByDate(forDate);
     }
 
