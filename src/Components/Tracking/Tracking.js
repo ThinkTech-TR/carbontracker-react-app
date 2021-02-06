@@ -28,13 +28,49 @@ function Tracking ({isUserSaved, userIdAuth0}) {
 
     const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([]);
     const [carbonInfoByDate, setCarbonInfoByDate] = useState([]);
-
+    const [uptodateCarbon, setUptodateCarbon] = useState([]);
+    const [total, setTotal] = useState(0);
+    
+    
+    
+    
     const sDate = forDate.toISOString().slice(0,10);
-
+    
     useEffect(() => {
         console.log("userIdAuth0 " + userIdAuth0);
-        console.log("isUserSaved  " + isUserSaved)
+        console.log("isUserSaved  " + isUserSaved);
+
         if(userIdAuth0 && isUserSaved === true) {
+            const getTotal = (info) => {
+                let sum = 0.0;
+                info.forEach(i => {
+                    sum += i.emission;
+                })
+                setTotal(Math.round(sum));
+            }
+
+            const graphInfoUpdate =(info) => {
+                const finishtDate = new Date().toISOString().slice(0,10);
+                const startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0,10); 
+                    
+                const data = info.filter(info => (new Date(info.trackingDate).toISOString().slice(0,10) <= finishtDate && new Date(info.trackingDate).toISOString().slice(0,10) >= startDate));
+
+                console.log("data");
+                console.log(data);
+                
+                getTotal(data);
+                const carbonValues = {};
+                data.forEach (e => {
+                    const itemCarbon = e.trackingItemName;
+                    carbonValues[itemCarbon] += e.emission;
+                });
+                setUptodateCarbon(carbonValues);
+                console.log("carbonValues");
+                console.log(carbonValues);
+            }
+                
+
+    
             //Initiate a get request to API endpoint
             console.log("get trackingcarbonformonth called")
             axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
@@ -44,9 +80,13 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                     console.log("trackingcarbonformonth response.data: ", JSON.stringify(response.data));
                     setCarbonInfoForMonth(response.data);
                     setCarbonInfoByDate(response.data.filter (info => info.trackingDate === sDate));
+                    graphInfoUpdate(response.data);
+                    
+                    //console.log(carbonhUptodate);
                 })
             //If error, log out the error
             .catch(error => console.log(error));
+            
         }
     }, [userIdAuth0, isUserSaved, sDate]);
 
@@ -151,19 +191,11 @@ function Tracking ({isUserSaved, userIdAuth0}) {
     }
 
 
-    function daylyAmountCO2 (records) {
-        let amountCO2 = 0;
-        for (let i = 0; i < records.length; i ++){
-            amountCO2 += records[i].emissionCO2;
-        }
-        
-        return amountCO2;
-    }
     return (
         <Container className="track-container">
             <Row>
                 <Col md={12} lg={6}>
-                    <h2 className="font-sm">Estimated CO2 this month is {daylyAmountCO2(carbonInfoByDate) * 30} kg</h2>
+                    <h2 className="font-sm">Estimated CO2 this month is {total} kg</h2>
                     <div className="chart-container chart-container-sm">
                         <Image src={Total} alt="total" fluid/>
                     </div>
