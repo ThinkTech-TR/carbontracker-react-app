@@ -48,9 +48,9 @@ function Tracking ({isUserSaved, userIdAuth0}) {
             const getTotal = (info) => {
                 let sum = 0.0;
                 info.forEach(i => {
-                    sum += i.emission;
+                    sum += Math.round(i.emission);
                 })
-                setTotal(Math.round(sum));
+                setTotal(sum);
             }
 
             const graphInfoUpdate =(info) => {
@@ -58,17 +58,17 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                 const startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0,10); 
                     
                 const data = info.filter(info => (new Date(info.trackingDate).toISOString().slice(0,10) <= finishtDate && new Date(info.trackingDate).toISOString().slice(0,10) >= startDate));
-                //console.log("data");
                 //console.log(data);
                 getTotal(data);
                 data.forEach (e => {
                     const itemCarbon = e.trackingItemName;
                     if (carbonValues[itemCarbon] === undefined) {
-                        carbonValues[itemCarbon] = e.emission;
+                        carbonValues[itemCarbon] = Math.round(e.emission);
                     } else {
-                        carbonValues[itemCarbon]  +=  e.emission;
+                        carbonValues[itemCarbon]  +=  Math.round(e.emission);
                     }
                 });
+                console.log(carbonValues);
                 setUptodateCarbon(carbonValues);
             }
             //Initiate a get request to API endpoint
@@ -151,7 +151,8 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         // update data
         const updatedJourney = carbonInfoByDate.find(item =>  item.idTrackRecord === id);
         updatedJourney.distance = newDistance;
-        console.log(updatedJourney);
+        //console.log(updatedJourney);
+
         //Make a post request, pass in the updatedRecords as the body
         axios.put(` https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/updatejourney`, updatedJourney)
         //if succesful, update carbonInfoByDate with response
