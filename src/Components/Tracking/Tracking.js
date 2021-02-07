@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import React, { useState, useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
+import ReactApexChart from 'react-apexcharts';
 import { faSave} from "@fortawesome/free-regular-svg-icons";
 import { faWindowClose} from "@fortawesome/free-regular-svg-icons";
 import { faEdit} from "@fortawesome/free-regular-svg-icons";
@@ -62,12 +63,15 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                 console.log(data);
                 
                 getTotal(data);
-                //const carbonValues = {};
                 data.forEach (e => {
                     const itemCarbon = e.trackingItemName;
-                    carbonValues[itemCarbon] += e.emission;
+                    if (carbonValues[itemCarbon] === undefined) {
+                        carbonValues[itemCarbon] = e.emission;
+                    } else {
+                        carbonValues[itemCarbon]  +=  e.emission;
+                    }
                 });
-                //setUptodateCarbon(carbonValues);
+                setUptodateCarbon(carbonValues);
                 console.log("carbonValues");
                 console.log(carbonValues);
             }
@@ -193,7 +197,42 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         setForDate(new Date(new Date(forDate).setDate(new Date(forDate).getDate() + 1)).toISOString().slice(0,10));
         fetchInfoByDate(forDate);
     }
-
+    //const series = uptodateCarbon.map((e) => { return e.itemCarbon; });
+    //const labels = ["House", "Car", "Diet", "plane", "bus", "train"];
+    const series = [44.16, 3.48, 31.26, 2747.67, 2.04, 2.95];
+    const options = {
+        //series: uptodateCarbon.map((e) => { return e.itemCarbon.value;}),
+        //series: [44.16, 3.48, 31.26, 2747.67, 2.04, 2.95],
+        //labels: uptodateCarbon.map((i) => { return i.itemCarbon; }),
+        labels: ["House", "Car", "Diet", "plane", "bus", "train"],
+        chart: {
+            height: 350,
+            type: 'radialBar',
+        },
+        plotOptions: {
+                radialBar: {
+                    dataLabels: {
+                        name: {
+                                show: true,
+                                fontSize: '22px',
+                            },
+                        value: {
+                            fontSize: '16px',
+                            formatter: function (val) {
+                                return val + "kg CO2"
+                            }
+                        },
+                        total: {
+                            show: true,
+                            label: 'Total',
+                            formatter: function (w) {
+                                return w.globals.seriesTotals.reduce((a,b) => {return a + b}) + "kg CO2"
+                            }
+                        }
+                    }
+                }
+        }
+    };    
 
     return (
         <Container className="track-container">
@@ -201,7 +240,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                 <Col md={12} lg={6}>
                     <h2 className="font-sm">Estimated CO2 this month is {total} kg</h2>
                     <div className="chart-container chart-container-sm">
-                        <Image src={Total} alt="total" fluid/>
+                        <ReactApexChart options={options} series = {series} type="radialBar" height="500" />
                     </div>
                 </Col>
                 <Col md={12} lg={6}>
