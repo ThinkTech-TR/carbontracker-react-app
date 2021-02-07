@@ -63,9 +63,11 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                 data.forEach (e => {
                     const itemCarbon = e.trackingItemName;
                     if (carbonValues[itemCarbon] === undefined) {
-                        carbonValues[itemCarbon] = Math.round(e.emission);
+                        //carbonValues[itemCarbon] = Math.round(e.emission);
+                        carbonValues[itemCarbon] = e.emission;
                     } else {
-                        carbonValues[itemCarbon]  +=  Math.round(e.emission);
+                        //carbonValues[itemCarbon]  =  Math.round(carbonValues[itemCarbon] + e.emission);
+                        carbonValues[itemCarbon]  +=  e.emission;
                     }
                 });
                 console.log(carbonValues);
@@ -192,7 +194,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         fetchInfoByDate(forDate);
     }
     
-    const series = Object.getOwnPropertyNames(uptodateCarbon).map (i => {return uptodateCarbon[i];});
+    const series = Object.getOwnPropertyNames(uptodateCarbon).map (i => {return Math.round(uptodateCarbon[i]);});
     const options = {
         labels: Object.getOwnPropertyNames(uptodateCarbon),
         chart: {
@@ -216,7 +218,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                             show: true,
                             label: 'Total',
                             formatter: function (w) {
-                                return w.globals.seriesTotals.reduce((a,b) => {return a + b}) + "kg CO2"
+                                return w.globals.seriesTotals.reduce((a,b) => {return Math.round(a + b)}) + "kg CO2"
                             }
                         }
                     }
