@@ -73,7 +73,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
             }
             //Initiate a get request to API endpoint
             console.log("get trackingcarbonformonth called")
-            axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
+            axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${forDate}/trackingcarbonformonth`)
             //If successful, update the carbonInfoForMonth state
             .then(                
                 response => {
@@ -227,7 +227,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         <Container className="track-container">
             <Row>
                 <Col md={12} lg={6}>
-                    <h2 className="font-sm">Estimated CO2 this month is {total} kg</h2>
+                    <p className="font-sm">Your estimated carbon footprint for this month is {total} kg</p>
                     <div className="chart-container chart-container-sm">
                         <ReactApexChart options={options} series = {series} type="radialBar" height="500" />
                     </div>
