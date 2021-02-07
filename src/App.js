@@ -115,6 +115,8 @@ function App() {
                     <Route path="/logout"><Logout /></Route>
                     <Route path="/analyze"><Analyze 
                         userData={userData}
+                        isUserSaved={isUserSaved}
+                        userIdAuth0={userIdAuth0}
                     /></Route>
                     <Route path="/tracking"><Tracking
                         isUserSaved={isUserSaved}

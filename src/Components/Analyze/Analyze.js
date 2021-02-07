@@ -6,17 +6,80 @@ import './Analyze.css';
 import axios from 'axios';
 
 
-function Analyze({ userData }) {
-
-  // if (userData) {
-  //   const userName = userData;
-  //   return userName;
-  // }
+function Analyze({ isUserSaved, userIdAuth0, userData }) {
 
   const setUserName = () => {
     const userName = userData.name;
     return userName;
   };
+
+  const [forDate, setForDate] = useState(() => {
+    return new Date().toISOString().slice(0, 10);
+  });
+
+  const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([]);
+  const [carbonInfoByDate, setCarbonInfoByDate] = useState([]);
+  const [uptodateCarbon, setUptodateCarbon] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [callUseEffect, setCallUseEffect] = useState(false);
+
+  const sDate = new Date().toISOString().slice(0, 10);
+  const carbonValues = {};
+
+  useEffect(() => {
+    console.log("userIdAuth0 " + userIdAuth0);
+    console.log("isUserSaved  " + isUserSaved);
+
+    if (userIdAuth0 && isUserSaved === true) {
+      const getTotal = (info) => {
+        let sum = 0.0;
+        info.forEach(i => {
+          sum += i.emission;
+        })
+        setTotal(Math.round(sum));
+      }
+
+      const graphInfoUpdate = (info) => {
+        const finishtDate = new Date().toISOString().slice(0, 10);
+        const startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10);
+
+        const data = info.filter(info => (new Date(info.trackingDate).toISOString().slice(0, 10) <= finishtDate && new Date(info.trackingDate).toISOString().slice(0, 10) >= startDate));
+        console.log("data: " + data);
+
+        getTotal(data);
+        data.forEach(e => {
+          const itemCarbon = e.trackingItemName;
+          if (carbonValues[itemCarbon] === undefined) {
+            carbonValues[itemCarbon] = e.emission;
+          } else {
+            carbonValues[itemCarbon] += e.emission;
+          }
+        });
+        setUptodateCarbon(carbonValues);
+      }
+      //Initiate a get request to API endpoint
+      console.log("get trackingcarbonformonth called")
+      axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
+        //If successful, update the carbonInfoForMonth state
+        .then(
+          response => {
+            console.log("trackingcarbonformonth response.data: ", JSON.stringify(response.data));
+            setCarbonInfoForMonth(response.data);
+            setCarbonInfoByDate(response.data.filter(info => info.trackingDate === forDate));
+            graphInfoUpdate(response.data);
+            setCallUseEffect(false);
+            //console.log(carbonhUptodate);
+          })
+        //If error, log out the error
+        .catch(error => console.log(error));
+
+    }
+  }, [userIdAuth0, isUserSaved, forDate, callUseEffect]);
+
+  // function fetchInfoByDate(forDate) {
+  //   setCarbonInfoByDate(carbonInfoForMonth.filter(info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate))));
+
+  // };
 
 
   const series =
@@ -72,7 +135,11 @@ function Analyze({ userData }) {
 
   };
 
-  const series2 = [14, 23, 21, 17];
+  const series2 = Object.getOwnPropertyNames(uptodateCarbon).map(i => { return Math.round(uptodateCarbon[i]); });
+  const travel = Math.round((uptodateCarbon["plane"] || 0) + (uptodateCarbon["bus"] || 0) + (uptodateCarbon["car"] || 0) + (uptodateCarbon["Car"] || 0) + (uptodateCarbon["train"] || 0));
+  const energy = Math.round(uptodateCarbon["House"]) || 0;
+  const diet = Math.round(uptodateCarbon["Diet"]) || 0;
+
   const options2 = {
     chart: {
       type: 'polarArea',
@@ -83,11 +150,9 @@ function Analyze({ userData }) {
     fill: {
       opacity: 0.8
     },
-    labels: ['House', 'Service', 'Transport', 'Diet'],
-    size: {
+    labels: Object.getOwnPropertyNames(uptodateCarbon),
 
-    }
-   };
+  };
 
   return (
     <div className="analyze-container d-flex flex-row">
@@ -97,19 +162,19 @@ function Analyze({ userData }) {
         {userData && <p className="text-center"><strong>{setUserName()}</strong></p>}
         <div className="d-flex flex-row justify-content-center">
           <div className="stats">
-            <h6>Travel </h6>
-            <h6><strong>Up 45%</strong></h6>
+            <h6>Travel</h6>
+            <h6><strong>{travel}</strong></h6>
           </div>
           <div className="stats">
             <h6>Energy</h6>
-            <h6><strong>Up 50%</strong></h6>
+            <h6><strong>{energy}</strong></h6>
           </div>
           <div className="stats">
             <h6>Diet</h6>
-            <h6><strong>Down 10%</strong></h6>
+            <h6><strong> {diet}</strong></h6>
           </div>
         </div>
-        <div className="text-center text-wrap"><h6>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem</h6></div>
+        <div className="text-center text-wrap"><h6>Your carbon footprint is getting lower! That's the way to go!</h6></div>
       </div>
       {/* Graphs */}
       <div className="graphs-container">
