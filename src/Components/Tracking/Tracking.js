@@ -58,10 +58,8 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                 const startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0,10); 
                     
                 const data = info.filter(info => (new Date(info.trackingDate).toISOString().slice(0,10) <= finishtDate && new Date(info.trackingDate).toISOString().slice(0,10) >= startDate));
-
-                console.log("data");
-                console.log(data);
-                
+                //console.log("data");
+                //console.log(data);
                 getTotal(data);
                 data.forEach (e => {
                     const itemCarbon = e.trackingItemName;
@@ -72,12 +70,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                     }
                 });
                 setUptodateCarbon(carbonValues);
-                console.log("carbonValues");
-                console.log(carbonValues);
             }
-                
-
-    
             //Initiate a get request to API endpoint
             console.log("get trackingcarbonformonth called")
             axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
@@ -197,14 +190,10 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         setForDate(new Date(new Date(forDate).setDate(new Date(forDate).getDate() + 1)).toISOString().slice(0,10));
         fetchInfoByDate(forDate);
     }
-    //const series = uptodateCarbon.map((e) => { return e.itemCarbon; });
-    //const labels = ["House", "Car", "Diet", "plane", "bus", "train"];
-    const series = [44.16, 3.48, 31.26, 2747.67, 2.04, 2.95];
+    
+    const series = Object.getOwnPropertyNames(uptodateCarbon).map (i => {return uptodateCarbon[i];});
     const options = {
-        //series: uptodateCarbon.map((e) => { return e.itemCarbon.value;}),
-        //series: [44.16, 3.48, 31.26, 2747.67, 2.04, 2.95],
-        //labels: uptodateCarbon.map((i) => { return i.itemCarbon; }),
-        labels: ["House", "Car", "Diet", "plane", "bus", "train"],
+        labels: Object.getOwnPropertyNames(uptodateCarbon),
         chart: {
             height: 350,
             type: 'radialBar',
