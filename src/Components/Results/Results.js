@@ -62,7 +62,7 @@ function Results({ questionnaire, userIdAuth0 }) {
 
         setLoading(true)
         axios
-            .post(` https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/initialcarbon`, questionnaire)
+            .post(process.env.REACT_APP_AWS+`initialcarbon`, questionnaire)
             .then(response => {
                 updateCarbon(response.data);
             })

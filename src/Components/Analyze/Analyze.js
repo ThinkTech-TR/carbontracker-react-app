@@ -36,7 +36,7 @@ function Analyze({ isUserSaved, userIdAuth0, userData }) {
       }
       //Initiate a get request to API endpoint
 
-      axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
+      axios.get(process.env.REACT_APP_AWS+`user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
         //If successful, update the carbonInfoForMonth state
         .then(
           response => {

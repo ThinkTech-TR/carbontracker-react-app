@@ -69,7 +69,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                 setUptodateCarbon(carbonValues);
             }
             //Initiate a get request to API endpoint
-            axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${forDate}/trackingcarbonformonth`)
+            axios.get(process.env.REACT_APP_AWS+`user/${userIdAuth0}/forDate/${forDate}/trackingcarbonformonth`)
             //If successful, update the carbonInfoForMonth state
             .then(                
                 response => {
@@ -104,9 +104,9 @@ function Tracking ({isUserSaved, userIdAuth0}) {
             authUserId: userIdAuth0,
         }
         //Make a post request, pass in the newJourney as the body
-        axios.post(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${forDate}/trackingcarbonformonth`, newJourney)
+        axios.post(process.env.REACT_APP_AWS+`user/${userIdAuth0}/forDate/${forDate}/trackingcarbonformonth`, newJourney)
         //if succesful, update carbonInfoByDate with response
-        .then(() => axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)) 
+        .then(() => axios.get(process.env.REACT_APP_AWS+`user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)) 
         .then(response => {setCarbonInfoForMonth(response.data);
                            setCarbonInfoByDate(response.data.filter (info => info.trackingDate === forDate));
                            setCallUseEffect(true);
@@ -149,9 +149,9 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         //console.log(updatedJourney);
 
         //Make a post request, pass in the updatedRecords as the body
-        axios.put(` https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/updatejourney`, updatedJourney)
+        axios.put(process.env.REACT_APP_AWS+`updatejourney`, updatedJourney)
         //if succesful, update carbonInfoByDate with response
-        .then(() => axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)) 
+        .then(() => axios.get(process.env.REACT_APP_AWS+`user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)) 
         .then(response => {setCarbonInfoForMonth(response.data);
                            setCarbonInfoByDate(response.data.filter (info => info.trackingDate === forDate));
                            setCallUseEffect(true);
