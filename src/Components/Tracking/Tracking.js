@@ -13,9 +13,6 @@ import { faForward} from "@fortawesome/free-solid-svg-icons";
 import { faBackward} from "@fortawesome/free-solid-svg-icons";
 
 
-import Total from "./total.png";
-import Image from 'react-bootstrap/Image';
-
 import AddJourney from "./AddJourney";
 
 import './Tracking.css';
@@ -38,13 +35,12 @@ function Tracking ({isUserSaved, userIdAuth0}) {
     
     //const sDate = forDate.toISOString().slice(0,10);
     const sDate = new Date().toISOString().slice(0,10);
-    const carbonValues = {};
+    
     
     useEffect(() => {
-        console.log("userIdAuth0 " + userIdAuth0);
-        console.log("isUserSaved  " + isUserSaved);
-
+        const carbonValues = {};
         if(userIdAuth0 && isUserSaved === true) {
+
             const getTotal = (info) => {
                 let sum = 0.0;
                 info.forEach(i => {
@@ -70,16 +66,13 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                         carbonValues[itemCarbon]  +=  e.emission;
                     }
                 });
-                console.log(carbonValues);
                 setUptodateCarbon(carbonValues);
             }
             //Initiate a get request to API endpoint
-            console.log("get trackingcarbonformonth called")
             axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${forDate}/trackingcarbonformonth`)
             //If successful, update the carbonInfoForMonth state
             .then(                
                 response => {
-                    console.log("trackingcarbonformonth response.data: ", JSON.stringify(response.data));
                     setCarbonInfoForMonth(response.data);
                     setCarbonInfoByDate(response.data.filter (info => info.trackingDate === forDate));
                     graphInfoUpdate(response.data);

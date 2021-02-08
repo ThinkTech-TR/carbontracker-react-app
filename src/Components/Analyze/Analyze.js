@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useAuth0 } from '@auth0/auth0-react';
 import ReactApexChart from 'react-apexcharts'
 import './Analyze.css';
 
@@ -13,40 +12,18 @@ function Analyze({ isUserSaved, userIdAuth0, userData }) {
     return userName;
   };
 
-  const [forDate, setForDate] = useState(() => {
-    return new Date().toISOString().slice(0, 10);
-  });
-
-  const [carbonInfoForMonth, setCarbonInfoForMonth] = useState([]);
-  const [carbonInfoByDate, setCarbonInfoByDate] = useState([]);
   const [uptodateCarbon, setUptodateCarbon] = useState([]);
-  const [total, setTotal] = useState(0);
   const [callUseEffect, setCallUseEffect] = useState(false);
 
-  const sDate = new Date().toISOString().slice(0, 10);
-  const carbonValues = {};
-
   useEffect(() => {
-    console.log("userIdAuth0 " + userIdAuth0);
-    console.log("isUserSaved  " + isUserSaved);
-
     if (userIdAuth0 && isUserSaved === true) {
-      const getTotal = (info) => {
-        let sum = 0.0;
-        info.forEach(i => {
-          sum += i.emission;
-        })
-        setTotal(Math.round(sum));
-      }
-
+      const carbonValues = {};
+      const sDate = new Date().toISOString().slice(0, 10);
       const graphInfoUpdate = (info) => {
         const finishtDate = new Date().toISOString().slice(0, 10);
         const startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10);
-
         const data = info.filter(info => (new Date(info.trackingDate).toISOString().slice(0, 10) <= finishtDate && new Date(info.trackingDate).toISOString().slice(0, 10) >= startDate));
-        console.log("data: " + data);
 
-        getTotal(data);
         data.forEach(e => {
           const itemCarbon = e.trackingItemName;
           if (carbonValues[itemCarbon] === undefined) {
@@ -58,28 +35,18 @@ function Analyze({ isUserSaved, userIdAuth0, userData }) {
         setUptodateCarbon(carbonValues);
       }
       //Initiate a get request to API endpoint
-      console.log("get trackingcarbonformonth called")
+
       axios.get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
         //If successful, update the carbonInfoForMonth state
         .then(
           response => {
-            console.log("trackingcarbonformonth response.data: ", JSON.stringify(response.data));
-            setCarbonInfoForMonth(response.data);
-            setCarbonInfoByDate(response.data.filter(info => info.trackingDate === forDate));
             graphInfoUpdate(response.data);
             setCallUseEffect(false);
-            //console.log(carbonhUptodate);
           })
         //If error, log out the error
         .catch(error => console.log(error));
-
     }
-  }, [userIdAuth0, isUserSaved, forDate, callUseEffect]);
-
-  // function fetchInfoByDate(forDate) {
-  //   setCarbonInfoByDate(carbonInfoForMonth.filter(info => info.trackingDate === new Intl.DateTimeFormat("en-GB").format(new Date(forDate))));
-
-  // };
+  }, [userIdAuth0, isUserSaved, callUseEffect]);
 
 
   const series =

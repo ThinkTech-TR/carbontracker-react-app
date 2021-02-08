@@ -29,7 +29,6 @@ function App() {
 
     const getQuestData = () => {
         const data = sessionStorage.getItem("questData");
-        console.log("getSessionState: " + data);
         if (data) {
             return JSON.parse(data);
         };
@@ -65,21 +64,16 @@ function App() {
         // Save questionnarie data to session storage
         const questDataAsString = JSON.stringify(questData)
         sessionStorage.setItem("questData", questDataAsString);
-        console.log("saveSessionState: " + questDataAsString);
 
         // Handle save of authenticated user and questionnaire to database
         if (isAuthenticated && !isUserSaved) {
             
             const userId = user.sub.slice(6);
-            console.log("userId: " + userId);
-
             axios
             .get(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/users/${userId}/checkuser`)
             .then((response) => {
-                console.log("checkuser response.data: " + response.data);
                 setIsUserSaved(response.data);
                 if (response.data === false)                {
-                    console.log("Calling addupdateuser")
                     axios
                     .post(`https://aeyr60hdff.execute-api.eu-west-2.amazonaws.com/dev/users/${userId}/addupdateuser`, questData)
                     .then((response) => {
