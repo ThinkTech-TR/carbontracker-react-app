@@ -33,7 +33,7 @@ function Landing() {
                     <div className="font-md"> Your impact on the planet</div>
                 </div>
             </div>
-            <p className="font-sm">Our tracker allows you to measure, understand and track your carbon footprint as an
+            <p className="font-sm margin-top-md">Our tracker allows you to measure, understand and track your carbon footprint as an
             individual or an organisation. Join together with friends or your team at work to reduce your
             impact on the planet.
             </p>
