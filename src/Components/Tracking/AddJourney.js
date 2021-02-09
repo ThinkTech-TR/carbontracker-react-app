@@ -73,7 +73,7 @@ return (
                 placeholder="miles"
                 value={ distance }>
             </input>
-            <button onClick={handleClick} type="submit" className="button-green"><FontAwesomeIcon icon={ faPlusSquare } className="icon-size" /></button>
+            <button onClick={handleClick} type="submit" className="button-white"><FontAwesomeIcon icon={ faPlusSquare } className="icon-size" /></button>
     </div>
     );
 }

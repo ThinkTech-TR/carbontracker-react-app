@@ -223,7 +223,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
         <Container className="track-container">
             <Row>
                 <Col md={12} lg={6}>
-                    <p className="font-sm">Your estimated carbon footprint for this month is {total} kg</p>
+                    <p className="font-sm"><strong>Your estimated carbon footprint for this month is {total} kg</strong></p>
                     <div className="chart-container chart-container-sm">
                         <ReactApexChart options={options} series = {series} type="radialBar" height="500" />
                     </div>
@@ -231,7 +231,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                 <Col md={12} lg={6}>
                     <div className="main-container">
                         <div className="container-data">
-                            <h5>{new Intl.DateTimeFormat("en-GB").format(new Date(forDate))}</h5>
+                            <h5 ><strong>{new Intl.DateTimeFormat("en-GB").format(new Date(forDate))}</strong></h5>
                             <Table responsive="sm" size="sm" className="font-sm">
                                 <thead>
                                     <tr>
@@ -262,14 +262,14 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                                                         inEditMode.status && inEditMode.rowKey === item.idTrackRecord ? (
                                                             <React.Fragment>
                                                                 {item.changeable === true && <button
-                                                                                                className="button-green"
+                                                                                                className="button-white"
                                                                                                 onClick={() => onSave({id: item.idTrackRecord, newDistance: distance})}
                                                                                             >
                                                                                                 <FontAwesomeIcon icon={ faSave } />
                                                                                             </button>
                                                                 }
                                                                 {item.changeable === true && <button
-                                                                                                className="button-green"
+                                                                                                className="button-white"
                                                                                                 onClick={() => onCancel()}
                                                                                             >
                                                                                                 <FontAwesomeIcon icon={ faWindowClose } />
@@ -279,7 +279,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                                                         ) :(
                                                             <React.Fragment>
                                                                 {item.changeable === true && <button
-                                                                                                className="button-green"
+                                                                                                className="button-white"
                                                                                                 onClick={() => onEdit({id: item.idTrackRecord, currentDistance: item.distance})}
                                                                                             >
                                                                                                 <FontAwesomeIcon icon={ faEdit } />
@@ -303,7 +303,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
                                     <React.Fragment>
                                     {!(new Intl.DateTimeFormat("en-GB").format(new Date(forDate)) === new Intl.DateTimeFormat("en-GB").format(new Date())) &&
                                         <button 
-                                            className="button-green"
+                                            className="button-white"
                                             onClick={() => onClickBackward()}
                                         >
                                             <FontAwesomeIcon icon={ faBackward } />
@@ -314,7 +314,7 @@ function Tracking ({isUserSaved, userIdAuth0}) {
 
                             <div className="right-btn">
                                 <button 
-                                    className="button-green"
+                                    className="button-white"
                                     onClick={() => onClickForward()}
                                 >
                                     <FontAwesomeIcon icon={ faForward } />

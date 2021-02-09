@@ -15,10 +15,11 @@
 .form-inline select {
     border-width: 0.5px;
     height: 29px;
+    background-color: aliceblue
 }
 .form-inline input {
     vertical-align: middle;
-    margin: 0 10px 5px 20px;
+    margin: 0 10px 0px 20px;
     padding: 10px;
     width: 70px;
     height: 28px;

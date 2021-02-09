@@ -65,6 +65,13 @@ td {
     width: 100%;
     padding: 30px;
 }
+
+.button-white {
+    color: black;
+    background-color: white;
+    border: 0px white;
+}
+
 /*
 @media only screen and (max-width: 992px) {    
     .chart-container-sm {
