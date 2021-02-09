@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ReactApexChart from 'react-apexcharts'
+import ReactApexChart from 'react-apexcharts';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 import './Analyze.css';
 
 import axios from 'axios';
@@ -13,6 +15,7 @@ function Analyze({ isUserSaved, userIdAuth0, userData }) {
   };
 
   const [uptodateCarbon, setUptodateCarbon] = useState([]);
+  const [uptodateCarbon2, setUptodateCarbon2] = useState([]);
   const [callUseEffect, setCallUseEffect] = useState(false);
 
   useEffect(() => {
@@ -34,9 +37,24 @@ function Analyze({ isUserSaved, userIdAuth0, userData }) {
         });
         setUptodateCarbon(carbonValues);
       }
+      const carbonValues2 = {};
+      const graphInfoUpdate2 = (info) => {
+        const finishtDate = new Date().toISOString().slice(0, 10);
+        const startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10);
+            const data = info.filter(info => (new Date(info.trackingDate).toISOString().slice(0, 10) <= finishtDate && new Date(info.trackingDate).toISOString().slice(0, 10) >= startDate));
+            data.forEach(e => {
+              const itemCarbon = e.trackingItemName;
+              if (carbonValues2[itemCarbon] === undefined) {
+                carbonValues2[itemCarbon] = e.emission;
+              } else {
+                carbonValues2[itemCarbon] += e.emission;
+              }
+            });
+            setUptodateCarbon2(carbonValues2);
+          }
       //Initiate a get request to API endpoint
 
-      axios.get(process.env.REACT_APP_AWS+`user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
+      axios.get(process.env.REACT_APP_AWS + `user/${userIdAuth0}/forDate/${sDate}/trackingcarbonformonth`)
         //If successful, update the carbonInfoForMonth state
         .then(
           response => {
@@ -45,8 +63,21 @@ function Analyze({ isUserSaved, userIdAuth0, userData }) {
           })
         //If error, log out the error
         .catch(error => console.log(error));
+
+        axios.get(process.env.REACT_APP_AWS +`user/${userIdAuth0}/forDate/${sDate}/ytd`)
+        //If successful, update the carbonInfoForMonth state
+        .then(
+          response => {
+            graphInfoUpdate2(response.data);
+            setCallUseEffect(false);
+          })
+        //If error, log out the error
+        .catch(error => console.log(error)); 
     }
   }, [userIdAuth0, isUserSaved, callUseEffect]);
+
+
+
 
 
   const series =
@@ -102,11 +133,11 @@ function Analyze({ isUserSaved, userIdAuth0, userData }) {
 
   };
 
-  const series2 = Object.getOwnPropertyNames(uptodateCarbon).map(i => { return Math.round(uptodateCarbon[i]); });
   const travel = Math.round((uptodateCarbon["plane"] || 0) + (uptodateCarbon["bus"] || 0) + (uptodateCarbon["car"] || 0) + (uptodateCarbon["Car"] || 0) + (uptodateCarbon["train"] || 0));
   const energy = Math.round(uptodateCarbon["House"]) || 0;
   const diet = Math.round(uptodateCarbon["Diet"]) || 0;
 
+  const series2 = Object.getOwnPropertyNames(uptodateCarbon).map(i => { return Math.round(uptodateCarbon[i]); });
   const options2 = {
     chart: {
       type: 'polarArea',
@@ -120,6 +151,24 @@ function Analyze({ isUserSaved, userIdAuth0, userData }) {
     labels: Object.getOwnPropertyNames(uptodateCarbon),
 
   };
+  const series3 = Object.getOwnPropertyNames(uptodateCarbon2).map(i => { return Math.round(uptodateCarbon2[i]); });
+  const options3 = {
+    chart: {
+      type: 'polarArea',
+    },
+    stroke: {
+      colors: ['#fff']
+    },
+    fill: {
+      opacity: 0.8
+    },
+    labels: Object.getOwnPropertyNames(uptodateCarbon2),
+
+  };
+
+
+
+
 
   return (
     <div className="analyze-container d-flex flex-row">
@@ -147,7 +196,14 @@ function Analyze({ isUserSaved, userIdAuth0, userData }) {
       <div className="graphs-container">
         <h3 className="text-center font-weight-bold"> Your Carbon Footprint distribution</h3>
         <div >
-          <ReactApexChart options={options2} series={series2} type="polarArea" height={550} />
+          <Tabs defaultActiveKey="mtd" transition={false} id="noanim-tab-example">
+            <Tab eventKey="mtd" title="MTD">
+              <ReactApexChart options={options2} series={series2} type="polarArea" height={550} />
+            </Tab>
+            <Tab eventKey="proytdile" title="YTD">
+              <ReactApexChart options={options3} series={series3} type="polarArea" height={550} />
+            </Tab>
+          </Tabs>
         </div>
       </div>
       {/* Leaderboards */}
