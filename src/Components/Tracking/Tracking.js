@@ -44,9 +44,9 @@ function Tracking ({isUserSaved, userIdAuth0}) {
             const getTotal = (info) => {
                 let sum = 0.0;
                 info.forEach(i => {
-                    sum += Math.round(i.emission);
+                    sum += i.emission;
                 })
-                setTotal(sum);
+                setTotal(Math.round(sum));
             }
 
             const graphInfoUpdate =(info) => {
